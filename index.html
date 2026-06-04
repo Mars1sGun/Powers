@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Superheroes Tierlist</title>
+<meta property="og:title" content="Superheroes Tierlist">
+<meta property="og:description" content="All powers ranked across 9 tiers with drop chances, controls, and effects.">
+<meta property="og:image" content="https://mars1sgun.github.io/Powers/og-image.png">
+<meta property="og:url" content="https://mars1sgun.github.io/Powers/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#e94560">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh}
+header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);padding:2rem;text-align:center;border-bottom:3px solid #e94560}
+header h1{font-size:2.5rem;font-weight:900;background:linear-gradient(90deg,#e94560,#0f3460,#e94560);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s ease-in-out infinite}
+header p{color:#a0a0b0;margin-top:.5rem;font-size:1.1rem}
+@keyframes shimmer{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+.container{max-width:1400px;margin:0 auto;padding:1rem}
+.tier{background:rgba(255,255,255,.03);border-radius:12px;margin:1rem 0;overflow:hidden;border:1px solid rgba(255,255,255,.06);transition:box-shadow .3s}
+.tier:hover{box-shadow:0 0 30px rgba(233,69,96,.1)}
+.tier-header{display:flex;align-items:center;padding:.75rem 1.25rem;gap:.75rem;cursor:pointer;user-select:none}
+.tier-rank{font-weight:900;font-size:1.3rem;min-width:50px;text-align:center;padding:.25rem .75rem;border-radius:8px}
+.tier-name{font-weight:700;font-size:1.1rem;flex:1}
+.tier-item{font-size:.8rem;color:#888;background:rgba(255,255,255,.05);padding:.2rem .6rem;border-radius:4px}
+.tier-rarity{font-size:.8rem;color:#888}
+.tier-toggle{font-size:1.2rem;color:#666;transition:transform .3s}
+.tier.collapsed .tier-toggle{transform:rotate(-90deg)}
+.tier-content{display:flex;flex-wrap:wrap;gap:.75rem;padding:0 1.25rem 1.25rem}
+.tier.collapsed .tier-content{display:none}
+.hero-card{background:rgba(255,255,255,.04);border-radius:10px;padding:.75rem;width:calc(33.333% - .5rem);border:1px solid rgba(255,255,255,.06);transition:all .3s;position:relative;overflow:hidden}
+.hero-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.3);border-color:rgba(255,255,255,.15)}
+.hero-card h3{font-size:1rem;font-weight:700;margin-bottom:.25rem}
+.hero-desc{font-size:.8rem;color:#999;line-height:1.4;margin-bottom:.5rem}
+.hero-meta{display:flex;gap:.5rem;flex-wrap:wrap;font-size:.7rem;align-items:center}
+.meta-tag{background:rgba(255,255,255,.06);padding:.15rem .5rem;border-radius:4px;color:#aaa}
+.meta-tag.howto{background:rgba(233,69,96,.15);color:#e94560}
+.meta-tag.chance{background:rgba(255,215,0,.12);color:#ffd700;font-weight:700}
+.spp-tier .tier-rank{background:linear-gradient(135deg,#ffd700,#ff8c00,#ffd700);color:#111}
+.spp-tier{border-color:#ffd700!important}.spp-tier .tier-header{background:linear-gradient(90deg,rgba(255,215,0,.08),transparent)}
+.s-tier .tier-rank{background:linear-gradient(135deg,#ff6b6b,#ee5a24);color:#fff}
+.a-tier .tier-rank{background:linear-gradient(135deg,#f093fb,#f5576c);color:#fff}
+.b-tier .tier-rank{background:linear-gradient(135deg,#4facfe,#00f2fe);color:#fff}
+.c-tier .tier-rank{background:linear-gradient(135deg,#43e97b,#38f9d7);color:#111}
+.d-tier .tier-rank{background:linear-gradient(135deg,#fa709a,#fee140);color:#111}
+.e-tier .tier-rank{background:linear-gradient(135deg,#a8edea,#fed6e3);color:#111}
+.f-tier .tier-rank{background:linear-gradient(135deg,#d8d8d8,#999);color:#111}
+.f_minus-tier .tier-rank{background:linear-gradient(135deg,#555,#333);color:#888}
+.hero-card.powerless{opacity:.4;filter:grayscale(1)}
+.hero-card.powerless:hover{opacity:.8;filter:grayscale(.5)}
+@media(max-width:900px){.hero-card{width:calc(50% - .5rem)}}
+@media(max-width:600px){.hero-card{width:100%}header h1{font-size:1.8rem}}
+footer{text-align:center;padding:2rem;color:#b388ff;font-size:.8rem}
+footer a{color:#b388ff;text-decoration:underline}
+</style>
+</head>
+<body>
+<header>
+<h1>SUPERHEROES TIERLIST</h1>
+<p>All powers ranked — click a tier to expand/collapse</p>
+<p style="margin-top:.5rem;font-size:.9rem;color:#4fc3f7">Bedrock: <b>138.201.255.236</b> port <b>5183</b> &nbsp;|&nbsp; Java: <b>138.201.255.236:5106</b></p>
+</header>
+<div class="container" id="app"></div>
+<footer>Built by 1sGun &middot; join the discord <a href="https://discord.gg/srqWWpAAYW" target="_blank">https://discord.gg/srqWWpAAYW</a></footer>
+<script>
+
+const TIERS = [
+  { id: "spp", label: "S++", item: "DEEPSLATE_EMERALD_ORE", heroes: [
+    { name: "Tank", desc: "Reinforce yourself and repair all your gear.", howto: "Sneak (120s cd)", effects: "Resistance III, Absorption III, full repair", chance: "50.0%" },
+    { name: "Timeweaver", desc: "Stop time and teleport through space.", howto: "Left-click (5s cd) / Sneak (60s cd)", effects: "Teleport 30 blocks, Time Stop 15s", chance: "50.0%" },
+  ]},
+  { id: "s", label: "S", item: "NETHER_STAR", heroes: [
+    { name: "Homelander", desc: "Fly through the skies and blast foes with laser vision and fireballs!", howto: "Jetpack (hold jump) + Right-click Redstone Block", effects: "Flight, Speed II, Strength II, Resistance II, Laser (6 dmg), Fireballs, X-ray", chance: "7.1%" },
+    { name: "Goku", desc: "You are an Adult Saiyan.", howto: "Right-click Breeze Rod (10s cd)", effects: "Ki Blast (5 dmg, 100 range), Speed VI, Jump Boost IV, Strength II, +20% HP", chance: "7.1%" },
+    { name: "Atrain", desc: "Super speedster.", howto: "Eat Sugar / Sneak (30s cd)", effects: "Speed VI, burst Speed XI, AoE slowness", chance: "7.1%" },
+    { name: "Eraserhead", desc: "Erase other people\'s powers by sneaking.", howto: "Sneak near target (30 range)", effects: "Power erasure on target", chance: "7.1%" },
+    { name: "Sorcerer", desc: "Create magical spell books using redstone.", howto: "Craft books with redstone", effects: "12+ spells: Fireball, Lightning, Explosion, etc.", chance: "14.3%" },
+    { name: "Terrorist", desc: "Explosive power.", howto: "Right-click to detonate", effects: "Creeper explosion (power 10), Remote detonation", chance: "14.3%" },
+    { name: "Heatwave", desc: "Engulf your surroundings in scorching flames!", howto: "Sneak (40s cd)", effects: "AoE fire (10 dmg), Ignite, Nausea", chance: "14.3%" },
+    { name: "Archer", desc: "Shoot arrows and repel everyone!", howto: "Right-click Feather (2s cd)", effects: "Levitation, Repulsion, Infinite arrows", chance: "14.3%" },
+    { name: "Almight", desc: "Sneak to become stronger.", howto: "Sneak (65s cd)", effects: "Strength VI, Resistance VI, Regen VI, Absorption VI", chance: "14.3%" },
+  ]},
+  { id: "a", label: "A", item: "DIAMOND_BLOCK", heroes: [
+    { name: "IronBlaster", desc: "Fly and unleash rapid ghast fireballs!", howto: "Jetpack + Right-click Blaze Powder", effects: "Flight, Speed VI, Fireball barrage", chance: "4.1%" },
+    { name: "Doomfist", desc: "You are Doomfist.", howto: "Punch air (10s cd)", effects: "Slam (8 dmg, 5 radius)", chance: "4.1%" },
+    { name: "Starlight", desc: "No power file found.", howto: "N/A", effects: "N/A", chance: "4.1%" },
+    { name: "IronMan", desc: "Genius, billionaire, playboy, philanthropist.", howto: "Jetpack (hold jump)", effects: "Flight with gliding", chance: "8.2%" },
+    { name: "BigBetha", desc: "You are GiantGertrude!", howto: "Passive", effects: "1.5x scale, Flight, Damage modifier", chance: "8.2%" },
+    { name: "MtLady", desc: "You are a giant!", howto: "Passive", effects: "3x scale, 2x HP, Step height 3", chance: "8.2%" },
+    { name: "Strongman", desc: "Pickup and throw entities!", howto: "Right-click entity", effects: "Throw (velocity 2.5)", chance: "8.2%" },
+    { name: "Superhuman", desc: "A more powerful human.", howto: "Passive", effects: "Resistance II, Speed II, Jump Boost III", chance: "8.2%" },
+    { name: "ExtraHeartMan", desc: "Extra hearts and give absorption.", howto: "Right-click player", effects: "+4 HP, Absorption II (60s) to others", chance: "8.2%" },
+    { name: "Speedster", desc: "Permanent speed IV.", howto: "Passive", effects: "Speed V", chance: "15.3%" },
+    { name: "Flashbang", desc: "Blind nearby players.", howto: "Sneak (60s cd)", effects: "AoE Blindness (20 blocks)", chance: "15.3%" },
+    { name: "Benson", desc: "Fly like Tinkerbell! Disabled for 5s on hit or when you hit someone.", howto: "Passive", effects: "Flight (tiny, 0.25x scale), disabled by Slowness X + Weakness V + Blindness for 5s on combat.", chance: "8.2%" },
+  ]},
+  { id: "b", label: "B", item: "GOLD_BLOCK", heroes: [
+    { name: "Lazer", desc: "Fire a deadly laser beam.", howto: "Right-click Echo Shard", effects: "Laser (6 dmg, 30 range)", chance: "5.7%" },
+    { name: "Gun", desc: "You have a gun.", howto: "Right-click Stone Hoe", effects: "Gun (5 dmg, 64 range)", chance: "11.4%" },
+    { name: "Robot", desc: "You\'re a robot.", howto: "Passive", effects: "No hunger, Resistance, Night vision", chance: "11.4%" },
+    { name: "Phase", desc: "Phase through the ground.", howto: "Sneak to phase", effects: "Phase 5 blocks deep", chance: "5.7%" },
+    { name: "Repulsion", desc: "Repel entities when sneaking.", howto: "Sneak", effects: "Repulse (1.5x, 10 radius)", chance: "5.7%" },
+    { name: "BlackHole", desc: "Attract entities when sneaking.", howto: "Sneak", effects: "Attract (-0.35x, 10 radius)", chance: "5.7%" },
+    { name: "GravitySucker", desc: "Control gravity.", howto: "Passive sneaking", effects: "Levitation, Slow falling, Repulse", chance: "11.4%" },
+    { name: "Sucker", desc: "You suck everything.", howto: "Sneak", effects: "Attract (-0.8x, 3.4 radius)", chance: "21.4%" },
+    { name: "Bubble", desc: "You have a bubble.", howto: "Sneak", effects: "Repulse (2x, 3.4 radius)", chance: "21.4%" },
+  ]},
+  { id: "c", label: "C", item: "BOOKSHELF", heroes: [
+    { name: "Stormborn", desc: "No power file found.", howto: "N/A", effects: "N/A", chance: "4.9%" },
+    { name: "Frozone", desc: "Walk on water, slow others.", howto: "Passive", effects: "Water walk, Slowness aura", chance: "4.9%" },
+    { name: "Nebular", desc: "Controls the void world.", howto: "Sneak (10s cd)", effects: "AoE 5 dmg + Blindness + Wither", chance: "4.9%" },
+    { name: "Dracula", desc: "Absorb life force.", howto: "Attack enemies", effects: "5% lifesteal, +2 max hearts per kill", chance: "9.8%" },
+    { name: "Zeus", desc: "Strike lightning.", howto: "Left-click (10s cd)", effects: "Lightning (30 range), Lightning immunity", chance: "9.8%" },
+    { name: "Midoriya", desc: "The Ninth Holder of One For All.", howto: "Sneak-jump to toggle", effects: "Full Cowling, Detroit Smash (8 dmg)", chance: "9.8%" },
+    { name: "Disguise", desc: "Trick players with disguise.", howto: "Sneak for invisibility", effects: "Invisibility, speed, decoy spawn", chance: "9.8%" },
+    { name: "DrCloak", desc: "Not attacked while disguised.", howto: "Sneak (30s cd)", effects: "10s invisibility, mobs lose target", chance: "9.8%" },
+    { name: "GravityGuy", desc: "Sneak to rise, let go to fall.", howto: "Sneak to rise", effects: "Levitation II, Slow falling", chance: "18.3%" },
+    { name: "Aerosurfer", desc: "Create platforms.", howto: "Sneak to create platforms", effects: "Glass platforms, Speed II", chance: "18.3%" },
+  ]},
+  { id: "d", label: "D", item: "BONE_BLOCK", heroes: [
+    { name: "Floral", desc: "Create and consume flowers.", howto: "Look at ground / Right-click", effects: "11 flower types with buffs", chance: "7.1%" },
+    { name: "Aquaman", desc: "Walk underwater.", howto: "Passive", effects: "Water breathing, water walking", chance: "7.1%" },
+    { name: "LavaWalker", desc: "Walk on lava.", howto: "Passive", effects: "Lava walk, fire heals, fire immunity", chance: "7.1%" },
+    { name: "Pyromaniac", desc: "Create fire trails.", howto: "Walk", effects: "Fire trail, fire/lava immunity", chance: "7.1%" },
+    { name: "Chicken", desc: "You\'re a chicken.", howto: "Passive", effects: "Lay eggs, Speed III, Slow falling", chance: "22.3%" },
+    { name: "Pig", desc: "You\'re a pig.", howto: "Passive", effects: "Pig beast control (32 range)", chance: "22.3%" },
+    { name: "Dolphin", desc: "Swim at great speeds!", howto: "Passive / Eat Ink Sac", effects: "Dolphins Grace V, Water breathing", chance: "13.4%" },
+    { name: "Tinkerbell", desc: "You are Tinkerbell!", howto: "Passive", effects: "Flight, Tiny (0.25x)", chance: "13.4%" },
+  ]},
+  { id: "e", label: "E", item: "IRON_BLOCK", heroes: [
+    { name: "Spartan", desc: "Unbreakable shield + arrows.", howto: "Right-click Arrow", effects: "Unbreakable shield, infinite arrows (3 dmg)", chance: "7.1%" },
+    { name: "SpiderMan", desc: "Climb blocks!", howto: "Walk near walls", effects: "Wall climb, 90% fall reduction, web traps", chance: "14.3%" },
+    { name: "KingMidas", desc: "Turn items to gold.", howto: "Passive / Right-click", effects: "Golden Apple craft, blocks to gold", chance: "14.3%" },
+    { name: "Scavenger", desc: "Extra crafting recipes.", howto: "Craft at table", effects: "Cheap diamond tools/armor", chance: "14.3%" },
+    { name: "Mole", desc: "Instant break certain blocks.", howto: "Break dirt/stone", effects: "Instant break, Night vision", chance: "14.3%" },
+    { name: "Speleologist", desc: "Double and smelt ores!", howto: "Mine ores", effects: "Auto-smelt & double all ores", chance: "14.3%" },
+    { name: "Pickpocket", desc: "Steal from players!", howto: "Sneak + right-click", effects: "Pickpocket (3 range)", chance: "7.1%" },
+    { name: "BlowingGuy", desc: "Rise and blow away.", howto: "Sneak", effects: "Levitation, Repulse (0.8x)", chance: "7.1%" },
+    { name: "Revealer", desc: "Reveal nearby enemies.", howto: "Sneak (60s cd)", effects: "Glowing on all enemies (20 blocks)", chance: "7.1%" },
+  ]},
+  { id: "f", label: "F", item: "ZOMBIE_HEAD", heroes: [
+    { name: "Creeper", desc: "You\'re a creeper.", howto: "Right-click to explode", effects: "Explosion (power 1), Remote detonation", chance: "5.4%" },
+    { name: "Enderman", desc: "Teleport by punching.", howto: "Left-click (10s cd)", effects: "Teleport 30 blocks, OHKO Endermen", chance: "10.8%" },
+    { name: "SkeletonKing", desc: "Lead an army of skeletons!", howto: "Passive", effects: "Skeleton control, spawn skeletons", chance: "5.4%" },
+    { name: "Zombie", desc: "You are a zombie!", howto: "Passive", effects: "Resistance II, knockback, burns in sun", chance: "10.8%" },
+    { name: "Dragon", desc: "Throw fireballs.", howto: "Right-click (30s cd)", effects: "Dragon fireballs", chance: "5.4%" },
+    { name: "Dragon2", desc: "Suck and blow everyone!", howto: "Right-click (2s cd)", effects: "Levitation X, Repulse, Wind Charges", chance: "5.4%" },
+    { name: "Slime", desc: "Bounce along the floor.", howto: "Passive", effects: "Bouncy, No fall damage", chance: "20.3%" },
+    { name: "IronGolem", desc: "You\'re an iron golem.", howto: "Passive", effects: "Iron ingots, Resistance II, Slowness II", chance: "10.8%" },
+    { name: "Guardian", desc: "No power file found.", howto: "N/A", effects: "N/A", chance: "5.4%" },
+    { name: "Snowman", desc: "Create snow trails!", howto: "Walk / Throw snowballs", effects: "Snow trail, infinite snowballs", chance: "20.3%" },
+  ]},
+  { id: "f_minus", label: "F-", item: "COAL_BLOCK", heroes: [
+    { name: "Powerless", desc: "You have no power.", howto: "N/A", effects: "Nothing. Normal player.", chance: "100.0%" },
+  ]},
+];
+const C = {"spp":"spp-tier","s":"s-tier","a":"a-tier","b":"b-tier","c":"c-tier","d":"d-tier","e":"e-tier","f":"f-tier","f_minus":"f_minus-tier"};
+function render(){const e=document.getElementById("app");e.innerHTML=TIERS.map((t,i)=>{const r=t.id!="spp"?"collapsed":"";return`<div class="tier ${C[t.id]} ${r}" onclick="this.classList.toggle('collapsed')"><div class="tier-header"><span class="tier-rank">${t.label}</span><span class="tier-item">${t.item}</span><span class="tier-rarity">${t.heroes.length} powers</span><span class="tier-toggle">▼</span></div><div class="tier-content">${t.heroes.map(h=>`<div class="hero-card${h.name==='Powerless'?' powerless':''}"><h3>${h.name}</h3><div class="hero-desc">${h.desc}</div><div class="hero-meta"><span class="meta-tag howto">${h.howto}</span><span class="meta-tag">${h.effects}</span><span class="meta-tag chance">${h.chance}</span></div></div>`).join("")}</div></div>`}).join("")}render();
+</script>
+</body>
+</html>
