@@ -48,6 +48,7 @@ header p{color:#a0a0b0;margin-top:.5rem;font-size:1.1rem}
 .e-tier .tier-rank{background:linear-gradient(135deg,#a8edea,#fed6e3);color:#111}
 .f-tier .tier-rank{background:linear-gradient(135deg,#d8d8d8,#999);color:#111}
 .f_minus-tier .tier-rank{background:linear-gradient(135deg,#555,#333);color:#888}
+.secret-banner{background:rgba(233,69,96,.12);border:2px solid #e94560;border-radius:12px;padding:1rem;text-align:center;margin:1rem 0;font-size:1rem;color:#e94560}
 .hero-card.powerless{opacity:.4;filter:grayscale(1)}
 .hero-card.powerless:hover{opacity:.8;filter:grayscale(.5)}
 @media(max-width:900px){.hero-card{width:calc(50% - .5rem)}}
@@ -73,17 +74,18 @@ const TIERS = [
     { name: "Swiper", desc: "Shift-click a player to steal their power for 60s! S++ tier.", howto: "Sneak + right-click target player (180s cd, 120s with TempU)", effects: "Steal target's hero (60s), target becomes Powerless. Reverts after expiry.", chance: "33.3%" },
   ]},
   { id: "s", label: "S", item: "NETHER_STAR", heroes: [
-    { name: "Homelander", desc: "Fly through the skies and blast foes with laser vision and fireballs!", howto: "Jetpack (hold jump) + Right-click Redstone Block", effects: "Flight, Speed II, Strength II, Resistance II, Laser (6 dmg), Fireballs, X-ray", chance: "5.9%" },
-    { name: "Butcher", desc: "super strength, and grabbing tentacles!", howto: "N/A", effects: "N/A", chance: "5.9%" },
-    { name: "Goku", desc: "You are an Adult Saiyan.", howto: "Right-click Breeze Rod (10s cd)", effects: "Ki Blast (5 dmg, 100 range), Speed VI, Jump Boost IV, Strength II, +20% HP", chance: "5.9%" },
-    { name: "Atrain", desc: "Super speedster.", howto: "Eat Sugar / Sneak (30s cd)", effects: "Speed VI, burst Speed XI, AoE slowness", chance: "5.9%" },
-    { name: "Eraserhead", desc: "Erase other people\'s powers by sneaking.", howto: "Sneak near target (30 range)", effects: "Power erasure on target", chance: "5.9%" },
-    { name: "Sorcerer", desc: "Create magical spell books using redstone.", howto: "Craft books with redstone", effects: "12+ spells: Fireball, Lightning, Explosion, etc.", chance: "11.8%" },
-    { name: "Terrorist", desc: "Explosive power.", howto: "Right-click to detonate", effects: "Creeper explosion (power 10), Remote detonation", chance: "11.8%" },
-    { name: "Heatwave", desc: "Engulf your surroundings in scorching flames!", howto: "Sneak (40s cd)", effects: "AoE fire (10 dmg), Ignite, Nausea", chance: "11.8%" },
-    { name: "Archer", desc: "Shoot arrows and repel everyone!", howto: "Right-click Feather (2s cd)", effects: "Levitation, Repulsion, Infinite arrows", chance: "11.8%" },
-    { name: "Almight", desc: "Sneak to become stronger.", howto: "Sneak (65s cd)", effects: "Strength VI, Resistance VI, Regen VI, Absorption VI", chance: "11.8%" },
-    { name: "Mirror", desc: "Shift-click a player to copy their power for 60s! S tier.", howto: "Sneak + right-click target player (180s cd, 120s with TempU)", effects: "Copy target's hero (60s), target keeps theirs. Reverts after expiry.", chance: "11.8%" },
+    { name: "Homelander", desc: "Fly through the skies and blast foes with laser vision and fireballs!", howto: "Jetpack (hold jump) + Right-click Redstone Block", effects: "Flight, Speed II, Strength II, Resistance II, Laser (6 dmg), Fireballs, X-ray", chance: "5.3%" },
+    { name: "Butcher", desc: "super strength, and grabbing tentacles!", howto: "N/A", effects: "N/A", chance: "5.3%" },
+    { name: "Goku", desc: "You are an Adult Saiyan.", howto: "Right-click Breeze Rod (10s cd)", effects: "Ki Blast (5 dmg, 100 range), Speed VI, Jump Boost IV, Strength II, +20% HP", chance: "5.3%" },
+    { name: "Atrain", desc: "Super speedster.", howto: "Eat Sugar / Sneak (30s cd)", effects: "Speed VI, burst Speed XI, AoE slowness", chance: "5.3%" },
+    { name: "Eraserhead", desc: "Erase other people\'s powers by sneaking.", howto: "Sneak near target (30 range)", effects: "Power erasure on target", chance: "5.3%" },
+    { name: "Sorcerer", desc: "Create magical spell books using redstone.", howto: "Craft books with redstone", effects: "12+ spells: Fireball, Lightning, Explosion, etc.", chance: "10.5%" },
+    { name: "Terrorist", desc: "Explosive power.", howto: "Right-click to detonate", effects: "Creeper explosion (power 10), Remote detonation", chance: "10.5%" },
+    { name: "Heatwave", desc: "Engulf your surroundings in scorching flames!", howto: "Sneak (40s cd)", effects: "AoE fire (10 dmg), Ignite, Nausea", chance: "10.5%" },
+    { name: "Archer", desc: "Shoot arrows and repel everyone!", howto: "Right-click Feather (2s cd)", effects: "Levitation, Repulsion, Infinite arrows", chance: "10.5%" },
+    { name: "Almight", desc: "Sneak to become stronger.", howto: "Sneak (65s cd)", effects: "Strength VI, Resistance VI, Regen VI, Absorption VI", chance: "10.5%" },
+    { name: "Mirror", desc: "Shift-click a player to copy their power for 60s! S tier.", howto: "Sneak + right-click target player (180s cd, 120s with TempU)", effects: "Copy target's hero (60s), target keeps theirs. Reverts after expiry.", chance: "10.5%" },
+    { name: "Switcharoo", desc: "Swap locations or items with any entity! Shift-click with empty hand to switch places, shift-click with an item to swap what you\'re holding. S tier power ability.", howto: "Sneak + right-click: empty hand = swap locations, with item = swap held item (60s cd, 40s with TempU)", effects: "Instant location swap with shift-click empty hand. Instant item swap with shift-click + held item.", chance: "10.5%" },
   ]},
   { id: "a", label: "A", item: "DIAMOND_BLOCK", heroes: [
     { name: "IronBlaster", desc: "Fly and unleash rapid ghast fireballs!", howto: "Jetpack + Right-click Blaze Powder", effects: "Flight, Speed VI, Fireball barrage", chance: "3.8%" },
@@ -161,7 +163,8 @@ const TIERS = [
   ]},
 ];
 const C = {"spp":"spp-tier","s":"s-tier","a":"a-tier","b":"b-tier","c":"c-tier","d":"d-tier","e":"e-tier","f":"f-tier","f_minus":"f_minus-tier"};
-function render(){const e=document.getElementById("app");e.innerHTML=TIERS.map((t,i)=>{const r=t.id!="spp"?"collapsed":"";return`<div class="tier ${C[t.id]} ${r}" onclick="this.classList.toggle('collapsed')"><div class="tier-header"><span class="tier-rank">${t.label}</span><span class="tier-item">${t.item}</span><span class="tier-rarity">${t.heroes.length} powers</span><span class="tier-toggle">▼</span></div><div class="tier-content">${t.heroes.map(h=>`<div class="hero-card${h.name==='Powerless'?' powerless':''}"><h3>${h.name}</h3><div class="hero-desc">${h.desc}</div><div class="hero-meta"><span class="meta-tag howto">${h.howto}</span><span class="meta-tag">${h.effects}</span><span class="meta-tag chance">${h.chance}</span></div></div>`).join("")}</div></div>`}).join("")}render();
+const S = 4;
+function render(){const e=document.getElementById("app");let h='';if(S>0){h+='<div class="secret-banner">There are <strong>'+S+'</strong> secret powers not shown — obtainable only through special means!</div>'}e.innerHTML=h+TIERS.map((t,i)=>{const r=t.id!="spp"?"collapsed":"";return`<div class="tier ${C[t.id]} ${r}" onclick="this.classList.toggle('collapsed')"><div class="tier-header"><span class="tier-rank">${t.label}</span><span class="tier-item">${t.item}</span><span class="tier-rarity">${t.heroes.length} powers</span><span class="tier-toggle">▼</span></div><div class="tier-content">${t.heroes.map(h=>`<div class="hero-card${h.name==='Powerless'?' powerless':''}"><h3>${h.name}</h3><div class="hero-desc">${h.desc}</div><div class="hero-meta"><span class="meta-tag howto">${h.howto}</span><span class="meta-tag">${h.effects}</span><span class="meta-tag chance">${h.chance}</span></div></div>`).join("")}</div></div>`}).join("")}render();
 </script>
 </body>
 </html>

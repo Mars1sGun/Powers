@@ -45,6 +45,8 @@ reroll_groups:
         weight: 2
       - hero: Mirror
         weight: 2
+      - hero: Switcharoo
+        weight: 2
 
   monsters:
     item:
