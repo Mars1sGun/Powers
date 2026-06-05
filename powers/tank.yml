@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=../schemas/Superheroes8+.json
+name: Tank
+colouredName: <bold><green>Tank
+description: Reinforce yourself and repair all your gear.
+skills:
+  fortify:
+    skill: CUSTOM
+    trigger:
+      type: SNEAK
+      conditions:
+        cooldown:
+          type: COOLDOWN
+          cooldown: 120
+          mode: SELF
+          else:
+            cooldownmsg:
+              type: ACTIONBAR
+              mode: SELF
+              message: "<green>Tank <gray>is on cooldown!"
+    effects:
+      resist:
+        type: POTION
+        mode: SELF
+        potion:
+          type: RESISTANCE
+          potency: 2
+          duration: 10
+      absorb:
+        type: POTION
+        mode: SELF
+        potion:
+          type: ABSORPTION
+          potency: 2
+          duration: 10
+      repair:
+        type: COMMAND
+        mode: SELF
+        executor: CONSOLE
+        commands:
+          - "rt give %self_name%"
+## command above give a repair totem (repairs all items 1 time use get another after cooldown)

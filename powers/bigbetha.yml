@@ -1,0 +1,31 @@
+name: GiantGertrude
+colouredName: <bold><green>GiantGertrude
+description: You are GiantGertrude!
+skin:
+  value: ewogICJ0aW1lc3RhbXAiIDogMTc2NTczMjkzNjg5NiwKICAicHJvZmlsZUlkIiA6ICIxMzEzZGFmMDc2OGQ0YmQ5Yjc1ODJkMGI1NWUwZGQxNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJMZW50aWNjaGllIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzU3OTk3NWI2ZGE5NjQzNjIwODg0NjZkNTFiZjNjNGVlMDZmOTE1ZjlhZjExMTA1YmVjMjFlMzNiNTI5OTBkMjYiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==
+  signature: Yzli4z8bzVleCtZ2Npf46VMORmKu1gdO/JXYLmeAoDqd5FAsn8u5DZRmaC2w6Wz3XI/0vLhB+vLO+pUelShb7bUx0sjj9awzoR6Pcs+qsvoycN+e1C8XTPGxhBL1vFpFgVacgReIvckxyHHQ4NrEzVmSdaWgKGLvDPgMZgEWSvhqKdQuHSCVrXJeFolKrQg1rthklClC4+xO0mbehDTdQP58pULCKZngjaTCBCB8bf6bJ7JvWfrRDq9Sh60T7VrJTCqly8Rm+JPbPhIguwPXXObleBcpknj3qIY2hjSmg7XH79BFPgH8ed7rzn1DQWedaOT1SKjP+mfmJ0IIVKSW+r7v0rOXYQquxNiWw8ftM6eAeJkupAtpl3QHft5zi9WoerLfDhotkkuuEE4RJZVP36OHzVz8NeLdqgIpnLnojRX34SsAY8AX8qL1BrGI+7drvm9HKlokcTi2DisXyhByMSzv7Ye0MyWKCAFJcnzvdQxmEhweCqsuK0emunkbrRKK8g8LGwZb5pfDleibepnDJJ+8jsQri9TWNqBH/BqEtlHQHJy//8FjaSrnZaUWjk0W+3c5vU7nrAIjqKMh5TRfgIGgN/InMlKNLl+up0YyzW+UZ3Fwo2PI3/3iS83O9FCCsZLL+ca5eiQBCV8zttR2jyh5OlYAapN7hU3j4f0w0Ls=
+skills:
+  tiny:
+    skill: ATTRIBUTE
+    unique_key: "MtLadyAttributes"
+    operation: MULTIPLY_SCALAR
+    attributes:
+      SCALE: 1.5
+      STEP_HEIGHT: 2
+      SAFE_FALL_DISTANCE: 2
+      BLOCK_BREAK_SPEED: 2
+      ENTITY_INTERACTION_RANGE: 2
+      MAX_HEALTH: 1
+      JUMP_STRENGTH: 2
+      ATTACK_KNOCKBACK: 2
+      GRAVITY: 2
+      FLYING_SPEED: 2
+  flight:
+    skill: FLIGHT
+  damageModifier:
+    skill: DAMAGEMODIFIER
+    maxDamage: 2
+    minDamage: 0
+    expectedMaxDamage: 30
+    eased: true
+    outgoing: true

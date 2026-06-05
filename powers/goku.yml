@@ -1,0 +1,75 @@
+name: Goku
+colouredName: <bold><gold>Adult Goku
+description: You are an Adult Saiyan
+
+skills:
+  gunItem:
+    skill: GIVEITEM
+    canStore: false
+    canDrop: false
+    canLoseOnDeath: false
+    canDropOnDeath: false
+    loseItemOnHeroLoss: true
+    item:
+      type: BREEZE_ROD
+      amount: 1
+      metadata:
+        displayName: <bold><red>Ki Blast
+        isUnbreakable: true
+        lore:
+          - <bold><white>100 Block Range
+          - <italic><white>2.5 Heart Damage
+          - <italic><white>Right Click
+        enchantments:
+          unbreaking: 3
+
+  gun:
+    skill: GUN
+    damage: 5.0
+    cooldown: 10.0
+    cooldownMessage: <bold><dark_gray>Ki Blast </dark_gray></bold><gray>has <currentcooldown> seconds left until it can be used again!
+    maxDistance: 100
+    bulletSize: 1.0
+    item:
+      type: BREEZE_ROD
+      amount: 1
+      metadata:
+        displayName: <bold><red>Ki Blast
+    shootSound:
+      sound: entity.generic.explode
+      volume: 0.5
+      pitch: 1.0
+    trailParticle:
+      particle: FLAME
+      amount: 1
+    hitParticle:
+      particle: EXPLOSION
+      amount: 5
+
+  gravityFlight:
+    skill: SNEAKINGPOTION
+    type: LEVITATION
+    potency: 5
+
+  speed:
+    skill: POTIONEFFECT
+    type: SPEED
+    potency: 5
+
+  jump:
+    skill: POTIONEFFECT
+    type: JUMP_BOOST
+    potency: 3
+
+  strength:
+    skill: POTIONEFFECT
+    type: STRENGTH
+    potency: 1
+
+  saiyanAttributes:
+    skill: ATTRIBUTE
+    unique_key: "GokuAttributes"
+    operation: MULTIPLY_SCALAR
+    attributes:
+      SAFE_FALL_DISTANCE: 1.5
+      MAX_HEALTH: 1.2

@@ -1,0 +1,12 @@
+name: Sucker
+colouredName: <bold><aqua>Sucker
+description: You suck everything..
+
+skills:
+  repulsion:
+    skill: REPULSION
+    multiplier: -0.8
+    radius: 3.4
+    whitelist: false
+    entities:
+      - ARMOR_STAND

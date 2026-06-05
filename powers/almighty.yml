@@ -1,0 +1,59 @@
+name: Almight
+colouredName: "<bold><#FFD700>A<#FFDF00>l<#FFE700>m<#FFEF00>i<#FFF700>g<#FFFF00>h<#F7FF00>t</bold>"
+description: sneak to become stronger
+
+skin:
+  value: "ewogICJ0aW1lc3RhbXAiIDogMTYyMjkwMjU1OTcxMiwKICAicHJvZmlsZUlkIiA6ICIyYzEwNjRmY2Q5MTc0MjgyODRlM2JmN2ZhYTdlM2UxYSIsCiAgInByb2ZpbGVOYW1lIiA6ICJOYWVtZSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS81NzM1Yjg4MGRlM2NhYjYxOTZjZjgzNDc0NzU1NjI1NWFmZjQyMzk0MGE0ODJjZTUyYjNjZmRhZThkNmE3NDk0IgogICAgfQogIH0KfQ=="
+  signature: "IgB7LkT14Cl8nHjgitYoToTt9LngGAayqwLL2mxWnKlxtDxde+1mC/9eBhELpwi1GM4xrBAmpe8KRH5hmQTaHUr/RC+i4Xrh88/iiztmiCMPAlOvG6nlnuTKBD9P2BgC3CgyJTqhSktmVGz8Nr7mL94vVqvix7Hp44lylNgte8Ue+cslHEhFwtAxDM7PtoZ1wekYxpMXqZyNEtP9dTEPb2hX0Gga5fWqnMnoOQCwI8+EcywUuEx3pdya7v2undH7DU51A+S505+qMweQ/1c4gCUyOo7z0H3QQoVa02nrEUwJd7fItYz2PaTq45y3owWOZR9Jvst7NmPtj9kORpfbpoLRQfxxBpxaPl37iX1zoTzxEuQz9OwPEViIpuGd0mATasdu66GZg84epxl63un7AWuoJDvv+geljR1gk7y47tk2foZxReNN3tM4CPrsGenniXI6vqFuHJX/wMPtJL6ONkcwpdOsx2pX5tlzKfMuwydF7RfNICdNfCYb8zwvqskNoz7SpaEU8G2uDDvYwgp/SUvJTUJydy1EPgtBEB2V2EurejUD8wiDrTXHVBnq6YSY3YJJ3pUyHFTkMHR0HUKcoIVk53c67FPpw6TAHbVd/qzn0WZ+bOyW7KJs8/BYzdTZYOSnWpvJguI6VKw/9UZ3rLcHO3yB+lcm46n2c1sxq4Q="
+
+skills:
+  almighty:
+    skill: CUSTOM
+    trigger:
+      type: SNEAK
+      conditions:
+        cooldown:
+          type: COOLDOWN
+          cooldown: 65
+          mode: SELF
+          else:
+            cooldownmsg:
+              type: ACTIONBAR
+              mode: SELF
+              message: "<gold>Almighty is on cooldown!"
+    effects:
+      slownessDrawback:
+        type: POTION
+        mode: SELF
+        potion:
+          type: SLOWNESS
+          potency: 5
+          duration: 5
+      strengthBurst:
+        type: POTION
+        mode: SELF
+        potion:
+          type: STRENGTH
+          potency: 5
+          duration: 5
+      resistanceBurst:
+        type: POTION
+        mode: SELF
+        potion:
+          type: RESISTANCE
+          potency: 5
+          duration: 5
+      regen:
+        type: POTION
+        mode: SELF
+        potion:
+          type: REGENERATION
+          potency: 5
+          duration: 5
+      absorb:
+        type: POTION
+        mode: SELF
+        potion:
+          type: ABSORPTION
+          potency: 5
+          duration: 5

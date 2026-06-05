@@ -1,0 +1,78 @@
+name: DrCloak
+colouredName: "<gradient:#FFFFFF:#444444><b>Dr Cloak"
+description: "You aren't attacked by mobs while using your disguise ability"
+skills:
+  preventtarget:
+    skill: CUSTOM
+    trigger:
+      type: TARGETED
+      conditions:
+        usingability:
+          type: METADATA
+          mode: SELF
+          variable: "CloakDisguise"
+          comparison: "EQUAL"
+          value: 1
+    effects:
+      cancel:
+        type: CANCEL
+        mode: SELF
+  activateAbility:
+    skill: CUSTOM
+    trigger:
+      type: SNEAK
+      conditions:
+        cooldown:
+          type: COOLDOWN
+          cooldown: 30
+          mode: SELF
+          else:
+            sendMessage:
+              type: MESSAGE
+              mode: SELF
+              message: "<grey><i>Your invisibility is currently on cooldown!"
+    effects:
+      activateAbility:
+        type: METADATA
+        mode: SELF
+        variable: "CloakDisguise"
+        operation: SET
+        value: 1
+      removeCurrentTarget:
+        type: AOE
+        mode: ALL
+        radius: 20
+        effects:
+          switcheroo:
+            type: SWITCHEROO
+            mode: ALL
+            effects:
+              target:
+                type: LOSETARGET
+                mode: SELF
+      invisibility:
+        type: POTION
+        mode: SELF
+        potion:
+          type: INVISIBILITY
+          potency: 1
+          duration: 10
+      wait:
+        type: WAIT
+        delay: 10
+        mode: ALL
+        effects:
+          deactivateAbility:
+            type: METADATA
+            mode: SELF
+            variable: "CloakDisguise"
+            operation: SET
+            value: 0
+          sendMessage:
+            type: MESSAGE
+            mode: SELF
+            message: "<grey><i>You are now <red><i>visible"
+      sendMessage:
+        type: MESSAGE
+        mode: SELF
+        message: "<grey><i>You are now <white><i>invisible"

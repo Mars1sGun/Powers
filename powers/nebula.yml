@@ -1,0 +1,23 @@
+Nebular:
+  colouredName: "&5&lNebular"
+  description: "Controls the void world"
+  skills:
+    chaos:
+      skill: CUSTOM
+      trigger:
+        type: SNEAK
+        conditions:
+          cooldown:
+            type: COOLDOWN
+            cooldown: 10
+            mode: SELF
+      effects:
+        AoEDamage:
+          type: AOE
+          radius: 10
+          mode: ALL
+          effects:
+            damage:
+              type: DAMAGE
+              damage: 5
+              mode: OTHER

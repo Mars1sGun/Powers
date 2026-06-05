@@ -1,0 +1,83 @@
+# yaml-language-server: $schema=../schemas/Superheroes8+.json
+name: Timegod
+colouredName: <bold><dark_purple>Time<dark_gray>god
+description: Stop time and teleport through space.
+
+skin:
+  value: ewogICJ0aW1lc3RhbXAiIDogMTcxODcxMjQwNjI5OCwKICAicHJvZmlsZUlkIiA6ICJiZmMyODE3ZWRhZWM0OWY5YTVmMWVkNTdjODZhMGFjOSIsCiAgInByb2ZpbGVOYW1lIiA6ICJFYm95UmV6YSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8xNjcwOWI3OGUxNmJlMTJmMjNkZjZjMmEzM2E3YjM4YTU0MTU4NjFhYzJiOTQ4NGVlZmE2Yzc4YTI0NTZmYzVmIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=
+  signature: Hl/h17M4maaFc80DMu28VbXr/U90NY9ZsqDMlYLrN492bVGaHo4mKhnT4QPrPi96kHom8+RGdpEtyW31soowqePGeD6Rq2aVMDmPncTyy8EgmpKdIk9tvugRGEOg4up/K1mIpt75Lzr4wlkU916uSiIoRA860xpO7CCJGDYi9vBMHIPddLAG4rmjA8rlnPKooNzkE+XEyxU/F275oVn6W46DYBkzg/dpfiHhZ5PFxwI1192Dak2hY9LGFWjcLqVgJPSEmijECaMKlpnVQlY48UX6Xbxch3gqLUTM68xLjx3693XwBmoyIgeu0RCi/GGFf7Nfv3ec0ckRSVayQLlX2KDjzrtbkryawJ3OuOj3MLEydq5BTR5nmknqA5zl3wi3rZy3UTMN+8fMACMMGpmuczvIXnGhG9e1q99IZGtkJask/KXFGM41VTMp6w5tNdJAsbZbA9ca3XIE9WwoZF1z45gtJ6zDw6LZBE2Gt42w2gUKc0sS1Ch1iPwoR9EZGcXsfKigqWqWzwV5JgAGhYV1CrS4LW+rNtTd7rJJZbt0frxlJbGE4KNF95z5G/ItypzmyqkpXMieAPSn9MC3a5bmbUuyZUaFMux/neQurP/TIUAGpD7ro94Ph1jUyXU/oA82L5+tgO5NKKVmWIatsLgh6ysoTOwK4mYaROPQOK5e5W8=
+
+skills:
+  teleport:
+    skill: TELEPORT
+    actions:
+      - LEFT_CLICK_AIR
+      - LEFT_CLICK_BLOCK
+    distance: 30
+    yAxisMultiplier: 0.75
+    teleportCause: ENDER_PEARL
+    cooldown: 2
+    cooldownMessage: "<dark_purple>Blink <gray>cooldown: <currentcooldown> seconds"
+    particle:
+      particle: PORTAL
+      shape:
+        type: HELIX
+      duration: 2
+      amount: 2
+  timeStop:
+    skill: CUSTOM
+    trigger:
+      type: SNEAK
+      conditions:
+        cooldown:
+          type: COOLDOWN
+          cooldown: 30
+          mode: SELF
+          else:
+            cooldownmsg:
+              type: ACTIONBAR
+              mode: SELF
+              message: "<dark_purple>Time Stop <gray>is on cooldown!"
+    effects:
+      selfSpeed:
+        type: POTION
+        mode: SELF
+        potion:
+          type: SPEED
+          potency: 5
+          duration: 10
+      freezeEntities:
+        type: AOE
+        mode: SELF
+        radius: 5
+        effects:
+          slowness:
+            type: POTION
+            mode: OTHER
+            potion:
+              type: SLOWNESS
+              potency: 10
+              duration: 15
+      freezeCmd:
+        type: COMMAND
+        mode: SELF
+        executor: CONSOLE
+        commands:
+          - "tick freeze"
+      wait:
+        type: WAIT
+        delay: 5
+        effects:
+          unfreezeCmd:
+            type: COMMAND
+            mode: SELF
+            executor: CONSOLE
+            commands:
+              - "tick unfreeze"
+      timeSound:
+        type: SOUND
+        mode: SELF
+        sound:
+          sound: entity.illusioner.prepare_mirror
+          volume: 5
+          pitch: 0.5

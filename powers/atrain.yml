@@ -1,0 +1,60 @@
+name: Atrain
+colouredName: <bold><blue>Atrain
+description: Atrain.
+skin:
+  value: ewogICJ0aW1lc3RhbXAiIDogMTcyMTI1OTkyNTA4NCwKICAicHJvZmlsZUlkIiA6ICJmZmJkZWRjODhlZjY0NjViYmYwOWQ2MmJhY2JmOTFiYSIsCiAgInByb2ZpbGVOYW1lIiA6ICJzZWJhc3RpYW42NDM5IiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzdiNzJhMjM1NzAwYTEzMTk3YzdlNGMwZWZlOWQ0OGQ4NmMyYzE2NjI2MjczNDk5MDcwNzZmMmVlYTVkZTExNzYiCiAgICB9CiAgfQp9
+  signature: cOxOJo4YrLsAaqE8awjXs3e6K1+mjULBZH8kzQ+WiDlEA2bdglNejgMqVIOkA8XaqmGJbWAiKwCTewOS1fvAPMTJBhVVHrproE8n51IxAvFkkNWYS4NxqPVC4QH3pa/ZBxq1MuqVWG1n+TgpIeBSjUa0Pv2kxNBat09vuaRPdC1cNUXpWDaaXYPsYUm0tE9S+XynA0n3B4eK+fmWgYSLvzy2E9iYauaqzDBo0BDvm1zO700faU0qI7CTNI8bJ5sepXkY8EIyXLN8Y038yna8bXRWsIrgmLYXkc6mKrf0Ig52U+Wfo3cC8PvECszsNhXWPYmqvYpK3E3qcwSbKWmN/v1239m9pgv53C/jQJfAWJ2JZCcyLcaKMn4n0H6QJAcKe4D9KZseeP417yvE0QuQokD2vbiFtVZdkL/+UaOfIc9nfLPXItWTdAdQb1MreP0JJBJrjmP7lO0WSQxxxeYrgTV1RuZorm3DzdOq9erot8VLBNWiQaMizDgxa9e8Q8PB30NKl5SaCSrLnc8YuIyW/I2eaEF3yadq/KicqzhJo6vHk4IzZmJCY7tqOlIo4j/6erEbSPiIjEi4s2nv0zzFsLfJPac2bJB4hUIlKx4Txtfkfumec4vpuXFnwxRVGCIe2o4xv+Py1vS9uwiClt7s6JP1Zb5tL24NAuOMnSry4TI=
+
+skills:
+  dolphinsGrace:
+    skill: POTIONEFFECT
+    type: SPEED
+    potency: 5
+
+  Haste:
+    skill: POTIONEFFECT
+    type: Haste
+    potency: 2
+
+  inkSacEat:
+    skill: CONSUME
+    type: SPEED
+    potency: 10
+    duration: 10
+    material: SUGAR
+    hunger: 2
+
+  aura:
+    skill: AURA
+    type: SLOWNESS
+    potency: 2
+    duration: 5
+    radius: 10
+
+  flash:
+    skill: CUSTOM
+    trigger:
+      type: SNEAK
+      conditions:
+        cooldown:
+          type: COOLDOWN
+          cooldown: 30
+          mode: SELF
+          else:
+            cooldownmsg:
+              type: ACTIONBAR
+              mode: SELF
+              message: "<blue>Wait 30 seconds before slowing people again!"
+    effects:
+      slowarea:
+        type: AOE
+        mode: SELF
+        radius: 10
+        effects:
+          darkness:
+            type: POTION
+            mode: OTHER
+            potion:
+              type: Slowness
+              potency: 10
+              duration: 10
