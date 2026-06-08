@@ -1,0 +1,12 @@
+name: Repulsion
+colouredName: <bold><aqua>Repulsion
+description: When you sneak, entities are repelled!
+skills:
+  repulsion:
+    skill: REPULSION
+    multiplier: 1.5 # set this to a negative number to attract.
+    radius: 10
+    whitelist: false
+    entities:
+      - ARMOR_STAND
+

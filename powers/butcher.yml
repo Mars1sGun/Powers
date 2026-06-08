@@ -1,0 +1,46 @@
+name: Butcher
+colouredName: "<bold><dark_red>Billy <red>Butcher</red></dark_red></bold>"
+description: super strength, and grabbing tentacles!
+
+skin:
+  value: ewogICJ0aW1lc3RhbXAiIDogMTcyMDQ2MjcwMjcyMiwKICAicHJvZmlsZUlkIiA6ICIxMWNkOTMzYmU1OGQ0MzYxOTdlYTc1MjU4MzM2Mzg0YiIsCiAgInByb2ZpbGVOYW1lIiA6ICJNb29ubGl0TUMiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzU3MjEyMjUyNTk0NTNmZmVlM2I4M2JhMTIxZDM5ODM2NzllMTIzM2QyOTcxOThiMTRmOGJiZjE1N2YxODM4NSIKICAgIH0KICB9Cn0=
+  signature: wFETuFpOkPKxmp8fjkStp0I6MogZI9Cd3fl5cSiLPw+AG0kkZG+N5ljKhMkPH7FIaVtZjxD7gZfPo0uL5aqulJEY9cNk2+2yqosZmW+O0I0UkBkMI+iEthvohCNdssQy9NySkzy0gRN6duAfHzZXdV5J3OGkJRwYkqgk7O+Smk3e76+DSHgu7TP57HmDvGTTIW9yb/YSfqT6B8Ii5Vyqhn84yjLSzJWsWd8rV/NstmiLhXZhaB49jpH/gd/Vcs31G+NNN0Bad4ieyX9L+wtTD5crX7HI0BoGdHvIa6nlDzRxrgfAvPZKOpGuQc7LPaw12Ag+uUfJdlSj1/+zhNl7vcyrFWVeIf+7SpYNzCX6q9nsSH8E1AN0n+VnBGwgmMYPOeww08VjvDZMZS9j3FHR8WGh/sK3+juc3+EaUWwT6ijRJrVPBWjn4RS7svsLlBH9Uo3/jptSA13wASfkrGuY12kEC20YlnXjjXd+fccgwclOw1S5nZEMG3mQAfbyoClrgUvYxIuQv3dTgcPXfHyok5Ydb/tK9oyDjyH8Mc9abNuBJ5C/hgjndzFZL0raU/VtilZIstudf1ehmd2MFQ2jni+OxBkJ1/Qcn0J62Jm29mU2b3wcpRZejyT3kYL2m+QUZZxz8e5mcn9HBxq2kdnRntgC8+i2bg3CJMLcJabeHnU=
+
+skills:
+  speed:
+    skill: POTIONEFFECT
+    type: SPEED
+    potency: 0
+
+  strength:
+    skill: POTIONEFFECT
+    type: STRENGTH
+    potency: 2
+
+  resistance:
+    skill: POTIONEFFECT
+    type: RESISTANCE
+    potency: 1
+
+  noFallDamage:
+    skill: DAMAGERESISTANCE
+    damageMultiplier: 0
+    damageCause:
+      - FALL
+
+  tentacleItem:
+    skill: GIVEITEM
+    canStore: false
+    canDrop: false
+    canLoseOnDeath: false
+    canDropOnDeath: false
+    loseItemOnHeroLoss: false
+    item:
+      type: BLACK_CONCRETE_POWDER
+      amount: 1
+      metadata:
+        displayName: "<bold><dark_red>Tentacle <red>Summon</red></dark_red></bold>"
+        isUnbreakable: true
+        lore:
+          - '<white>Left-click: <red>Damage Grab</red> <grey>(grabs + tick damage)'
+          - '<white>Right-click: <red>Hold Grab</red> <grey>(grabs and drags)'

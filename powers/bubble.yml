@@ -1,0 +1,12 @@
+name: Bubble
+colouredName: <bold><aqua>Bubble
+description: You have a bubble.
+
+skills:
+  repulsion:
+    skill: REPULSION
+    multiplier: 2
+    radius: 3.4
+    whitelist: false
+    entities:
+      - ARMOR_STAND

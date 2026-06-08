@@ -1,0 +1,61 @@
+name: IronBlaster
+colouredName: <bold><red>Iron Blaster
+description: Fly like Iron Man and unleash rapid ghast fireballs!
+
+skills:
+  jetpack:
+    skill: JETPACK
+    gliding: true
+    verticalOnly: false
+    horizontalMagnitude: 1.0
+    verticalMagnitude: 1.1
+    horizontalAccelerationMultiplier: 0.2
+    verticalAccelerationMultiplier: 0.3
+    disableInWater: true
+    disableOnGround: false
+    sprinting: true
+
+  speed:
+    skill: POTIONEFFECT
+    type: SPEED
+    potency: 5
+
+  sneakSpeed:
+    skill: SNEAKINGPOTION
+    type: SPEED
+    potency: 10
+
+  noFallDamage:
+    skill: DAMAGERESISTANCE
+    damageMultiplier: 0
+    damageCause:
+      - FALL
+
+  fireballItem:
+    skill: GIVEITEM
+    canStore: false
+    canDrop: false
+    canLoseOnDeath: false
+    canDropOnDeath: false
+    loseItemOnHeroLoss: false
+    item:
+      type: BLAZE_POWDER
+      amount: 1
+      metadata:
+        displayName: <bold><red>Fire Blaster
+        isUnbreakable: true
+        lore:
+          - <italic><white>Rapidly fire ghast fireballs!
+
+  fireballShooter:
+    skill: THROWER
+    item:
+      types:
+        - BLAZE_POWDER
+      metadata:
+        displayName: <bold><red>Fire Blaster
+    ammoCost: 0
+    projectile: FIREBALL
+    cooldown: 1
+    cooldownMessage: '<red>Fire Blaster <gray>cooldown: <currentcooldown> seconds'
+    velocity: 10

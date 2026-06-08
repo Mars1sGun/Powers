@@ -1,0 +1,8 @@
+name: Switcharoo
+colouredName: "<bold><gold>Switcharoo</bold>"
+description: Shift + right-click a player with empty hand to swap locations. Shift + right-click with an item to swap held items! S tier power ability.
+skills:
+  dummy:
+    skill: POTIONEFFECT
+    type: SPEED
+    potency: 0

@@ -1,0 +1,52 @@
+name: GravityDragon
+colouredName: <bold><White>GravityDragon
+description: Suck and blow everyone!
+
+skin:
+  value: ewogICJ0aW1lc3RhbXAiIDogMTYxMzQ5NDg0NDg2MSwKICAicHJvZmlsZUlkIiA6ICI5NGMzZGM3YTdiMmQ0NzQ1YmVlYjQzZDc2ZjRjNDVkYyIsCiAgInByb2ZpbGVOYW1lIiA6ICJUaGVRdWFzb24iLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmQ3MWNiYzdiZjkxMzcxNDUwMmIwMDE0Mjg5MDBiNDBlNTUyNjZmNTcwODY4MjFhZjNiYzE4MzhhYWE4MTQ2NSIKICAgIH0KICB9Cn0=
+  signature: XiXKzjGQUoOxhjAScn/vdcs0X+YRmImMVaTXqmh3b3SYTM1Xo2rAGe6pPEn3bcZ2C0fi4k0wbn4vxCOtCTSvVBFqykl6Tix1eH6ZbQ67fcL/XvOV8ZG20CvTmS04XSjwPA8rX8Gaj5Uq9n8NvxAzFggmKssm+hZ8wKTE2XVEriJQPYVRFsNvzeRjb0EJuouaiAAaLLqhjDBhk7Q9pi5wnM08Q/7JL8GP5XPdnyb9VV/GqGdHvH8juR2o9HaiK3ShblsKSm3csNwXQ33IEGUhrDcCu3eyj1Fhc355Gb39B978axiZ2RJ/BIL5ZSBg6QQ1OgrH0rYCUnb3YT9V/KApXpk59jRRkDYzf78PdvzV09Ls1xtBpOexp9JEgfK4vJE+Y9s/QYbC0mMNR7dvBs/O/lMO/YOMZOnB+9cOsn2w4Q9Ixz5lwjb0FkXYMILNVvew9x90m3cE4qWLny/Upn9n+0cMSor23LFJZyfAoXcT/M7pgirQulIVvKMg4nIJ0AW0WoyON/H/++XmgKDPpDaKvKecq7512Q6M6px/Dr2N2BjnjRLM+T/ux1kuYu75gYWpXeVSCZeHK3lrI01Gr/kD/UOkQ5ndqTq70BmfrgGjKAffPDPBHhPGpY5PnJeVfSPorbIlHFPxu7HcOCNYpsAgnsjgffyZBjI41qcOqm+GMSM=
+
+skills:
+  gravity:
+    skill: SNEAKINGPOTION
+    type: LEVITATION
+    potency: 10
+
+  repulsion:
+    skill: REPULSION
+    multiplier: -2
+    radius: 4
+    whitelist: false
+    entities:
+      - ARMOR_STAND
+
+  WindChargeItem:
+    skill: GIVEITEM
+    canStore: false
+    canDrop: false
+    canLoseOnDeath: false
+    canDropOnDeath: false
+    loseItemOnHeroLoss: false
+    item:
+      type: BREEZE_ROD
+      amount: 1
+      metadata:
+        displayName: <bold><dark_purple>Dragon </dark_purple></bold><bold><gray>WindCharge
+        isUnbreakable: true
+        lore:
+          - <italic><white>You can use this to throw dragon WindCharges!
+
+  throwableWindCharges:
+    skill: THROWER
+    item:
+      types:
+        - BREEZE_ROD
+      metadata:
+        displayName: <bold><dark_purple>Dragon </dark_purple></bold><bold><gray>WindCharge
+        lore:
+          - <italic><white>You can use this to throw dragon WindCharges!
+    ammoCost: 0
+    projectile: WIND_CHARGE
+    cooldown: 2
+    cooldownMessage: '<bold><#00AFFF>W</#00AFFF><#22BFFF>i</#22BFFF><#44CFFF>n</#44CFFF><#66DFFF>d</#66DFFF><#88EFFF> </#88EFFF><#AAFFFF>C</#AAFFFF><#BBFFFF>h</#BBFFFF><#CCFFFF>a</#CCFFFF><#DDFFFF>r</#DDFFFF><#EEFFFF>g</#EEFFFF><#FFFFFF>e</#FFFFFF></bold><white> Cooldown: <currentcooldown> seconds'
+    velocity: 5
