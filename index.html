@@ -37,6 +37,7 @@ header p{color:#a0a0b0;margin-top:.5rem;font-size:1.1rem}
 .hero-meta{display:flex;gap:.5rem;flex-wrap:wrap;font-size:.7rem;align-items:center}
 .meta-tag{background:rgba(255,255,255,.06);padding:.15rem .5rem;border-radius:4px;color:#aaa}
 .meta-tag.howto{background:rgba(233,69,96,.15);color:#e94560}
+.meta-tag.obtain{background:rgba(79,195,247,.12);color:#4fc3f7;grid-column:1/-1;margin-top:2px}
 .meta-tag.chance{background:rgba(255,215,0,.12);color:#ffd700;font-weight:700}
 .spp-tier .tier-rank{background:linear-gradient(135deg,#ffd700,#ff8c00,#ffd700);color:#111}
 .spp-tier{border-color:#ffd700!important}.spp-tier .tier-header{background:linear-gradient(90deg,rgba(255,215,0,.08),transparent)}
@@ -48,6 +49,13 @@ header p{color:#a0a0b0;margin-top:.5rem;font-size:1.1rem}
 .e-tier .tier-rank{background:linear-gradient(135deg,#a8edea,#fed6e3);color:#111}
 .f-tier .tier-rank{background:linear-gradient(135deg,#d8d8d8,#999);color:#111}
 .f_minus-tier .tier-rank{background:linear-gradient(135deg,#555,#333);color:#888}
+.howto-box{background:rgba(79,195,247,.08);border:1px solid rgba(79,195,247,.3);border-radius:12px;padding:1.25rem;margin:1.25rem 0;text-align:left}
+.howto-box h2{color:#4fc3f7;font-size:1.2rem;font-weight:800;margin-bottom:.75rem;text-align:center}
+.howto-box ol{list-style:none;counter-reset:item;padding:0}
+.howto-box ol li{counter-increment:item;padding:.4rem 0 .4rem 2.2rem;position:relative;font-size:.85rem;color:#ccc;line-height:1.5}
+.howto-box ol li::before{content:counter(item);position:absolute;left:0;top:.4rem;background:#4fc3f7;color:#0a0a0f;width:1.5rem;height:1.5rem;border-radius:50%;font-size:.75rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+.howto-box ol li strong{color:#fff}
+.howto-box ol li code{background:rgba(255,255,255,.08);padding:.1rem .4rem;border-radius:4px;font-size:.8rem;color:#4fc3f7}
 .secret-banner{background:rgba(233,69,96,.12);border:2px solid #e94560;border-radius:12px;padding:1rem;text-align:center;margin:1rem 0;font-size:1rem;color:#e94560}
 .hero-card.powerless{opacity:.4;filter:grayscale(1)}
 .hero-card.powerless:hover{opacity:.8;filter:grayscale(.5)}
@@ -68,103 +76,103 @@ footer a{color:#b388ff;text-decoration:underline}
 <script>
 
 const TIERS = [
-  { id: "spp", label: "S++", item: "DEEPSLATE_EMERALD_ORE", heroes: [
-    { name: "Tank", desc: "Reinforce yourself and repair all your gear.", howto: "Sneak (120s cd)", effects: "Resistance III, Absorption III, full repair", chance: "33.3%" },
-    { name: "Timeweaver", desc: "Stop time and teleport through space.", howto: "Left-click (5s cd) / Sneak (60s cd)", effects: "Teleport 30 blocks, Time Stop 15s", chance: "33.3%" },
-    { name: "Swiper", desc: "Shift-click a player to steal their power for 60s! S++ tier.", howto: "Sneak + right-click target player (180s cd, 120s with TempU)", effects: "Steal target's hero (60s), target becomes Powerless. Reverts after expiry.", chance: "33.3%" },
+  { id: "spp", label: "S++", item: "BARRIER", heroes: [
+    { name: "Tank", desc: "Reinforce yourself and repair all your gear.", howto: "Sneak (120s cd)", effects: "Resistance III, Absorption III, full repair", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "33.3%" },
+    { name: "Timeweaver", desc: "Stop time and teleport through space.", howto: "Left-click (5s cd) / Sneak (60s cd)", effects: "Teleport 30 blocks, Time Stop 15s", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "33.3%" },
+    { name: "Swiper", desc: "Shift-click a player to steal their power for 60s! S++ tier.", howto: "Sneak + right-click target player (180s cd, 120s with TempU)", effects: "Steal target's hero (60s), target becomes Powerless. Reverts after expiry.", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "33.3%" },
   ]},
-  { id: "s", label: "S", item: "NETHER_STAR", heroes: [
-    { name: "Homelander", desc: "Fly through the skies and blast foes with laser vision and fireballs!", howto: "Jetpack (hold jump) + Right-click Redstone Block", effects: "Flight, Speed II, Strength II, Resistance II, Laser (6 dmg), Fireballs, X-ray", chance: "5.3%" },
-    { name: "Butcher", desc: "super strength, and grabbing tentacles!", howto: "N/A", effects: "N/A", chance: "5.3%" },
-    { name: "Goku", desc: "You are an Adult Saiyan.", howto: "Right-click Breeze Rod (10s cd)", effects: "Ki Blast (5 dmg, 100 range), Speed VI, Jump Boost IV, Strength II, +20% HP", chance: "5.3%" },
-    { name: "Atrain", desc: "Super speedster.", howto: "Eat Sugar / Sneak (30s cd)", effects: "Speed VI, burst Speed XI, AoE slowness", chance: "5.3%" },
-    { name: "Eraserhead", desc: "Erase other people\'s powers by sneaking.", howto: "Sneak near target (30 range)", effects: "Power erasure on target", chance: "5.3%" },
-    { name: "Sorcerer", desc: "Create magical spell books using redstone.", howto: "Craft books with redstone", effects: "12+ spells: Fireball, Lightning, Explosion, etc.", chance: "10.5%" },
-    { name: "Terrorist", desc: "Explosive power.", howto: "Right-click to detonate", effects: "Creeper explosion (power 10), Remote detonation", chance: "10.5%" },
-    { name: "Heatwave", desc: "Engulf your surroundings in scorching flames!", howto: "Sneak (40s cd)", effects: "AoE fire (10 dmg), Ignite, Nausea", chance: "10.5%" },
-    { name: "Archer", desc: "Shoot arrows and repel everyone!", howto: "Right-click Feather (2s cd)", effects: "Levitation, Repulsion, Infinite arrows", chance: "10.5%" },
-    { name: "Almight", desc: "Sneak to become stronger.", howto: "Sneak (65s cd)", effects: "Strength VI, Resistance VI, Regen VI, Absorption VI", chance: "10.5%" },
-    { name: "Mirror", desc: "Shift-click a player to copy their power for 60s! S tier.", howto: "Sneak + right-click target player (180s cd, 120s with TempU)", effects: "Copy target's hero (60s), target keeps theirs. Reverts after expiry.", chance: "10.5%" },
-    { name: "Switcharoo", desc: "Swap locations or items with any entity! Shift-click with empty hand to switch places, shift-click with an item to swap what you\'re holding. S tier power ability.", howto: "Sneak + right-click: empty hand = swap locations, with item = swap held item (60s cd, 40s with TempU)", effects: "Instant location swap with shift-click empty hand. Instant item swap with shift-click + held item.", chance: "10.5%" },
+  { id: "s", label: "S", item: "BARRIER", heroes: [
+    { name: "Homelander", desc: "Fly through the skies and blast foes with laser vision and fireballs!", howto: "Jetpack (hold jump) + Right-click Redstone Block", effects: "Flight, Speed II, Strength II, Resistance II, Laser (6 dmg), Fireballs, X-ray", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "5.3%" },
+    { name: "Butcher", desc: "super strength, and grabbing tentacles!", howto: "N/A", effects: "N/A", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "5.3%" },
+    { name: "Goku", desc: "You are an Adult Saiyan.", howto: "Right-click Breeze Rod (10s cd)", effects: "Ki Blast (5 dmg, 100 range), Speed VI, Jump Boost IV, Strength II, +20% HP", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "5.3%" },
+    { name: "Atrain", desc: "Super speedster.", howto: "Eat Sugar / Sneak (30s cd)", effects: "Speed VI, burst Speed XI, AoE slowness", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "5.3%" },
+    { name: "Eraserhead", desc: "Erase other people\'s powers by sneaking.", howto: "Sneak near target (30 range)", effects: "Power erasure on target", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "5.3%" },
+    { name: "Sorcerer", desc: "Create magical spell books using redstone.", howto: "Craft books with redstone", effects: "12+ spells: Fireball, Lightning, Explosion, etc.", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "10.5%" },
+    { name: "Terrorist", desc: "Explosive power.", howto: "Right-click to detonate", effects: "Creeper explosion (power 10), Remote detonation", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "10.5%" },
+    { name: "Heatwave", desc: "Engulf your surroundings in scorching flames!", howto: "Sneak (40s cd)", effects: "AoE fire (10 dmg), Ignite, Nausea", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "10.5%" },
+    { name: "Archer", desc: "Shoot arrows and repel everyone!", howto: "Right-click Feather (2s cd)", effects: "Levitation, Repulsion, Infinite arrows", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "10.5%" },
+    { name: "Almight", desc: "Sneak to become stronger.", howto: "Sneak (65s cd)", effects: "Strength VI, Resistance VI, Regen VI, Absorption VI", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "10.5%" },
+    { name: "Mirror", desc: "Shift-click a player to copy their power for 60s! S tier.", howto: "Sneak + right-click target player (180s cd, 120s with TempU)", effects: "Copy target's hero (60s), target keeps theirs. Reverts after expiry.", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "10.5%" },
+    { name: "Switcharoo", desc: "Swap locations or items with any entity! Shift-click with empty hand to swap places, shift-click with an item to swap what you\'re holding. S tier power ability.", howto: "Sneak + right-click: empty hand = swap locations, with item = swap held item (60s cd, 40s with TempU)", effects: "Instant location swap with shift-click empty hand. Instant item swap with shift-click + held item.", obtain: "Secret power — unlock via special methods. Use `/powers clues` for hints.", chance: "10.5%" },
   ]},
-  { id: "a", label: "A", item: "DIAMOND_BLOCK", heroes: [
-    { name: "IronBlaster", desc: "Fly and unleash rapid ghast fireballs!", howto: "Jetpack + Right-click Blaze Powder", effects: "Flight, Speed VI, Fireball barrage", chance: "3.8%" },
-    { name: "Doomfist", desc: "You are Doomfist.", howto: "Punch air (10s cd)", effects: "Slam (8 dmg, 5 radius)", chance: "3.8%" },
-    { name: "Starlight", desc: "No power file found.", howto: "N/A", effects: "N/A", chance: "3.8%" },
-    { name: "IronMan", desc: "Genius, billionaire, playboy, philanthropist.", howto: "Jetpack (hold jump)", effects: "Flight with gliding", chance: "7.5%" },
-    { name: "BigBetha", desc: "You are GiantGertrude!", howto: "Passive", effects: "1.5x scale, Flight, Damage modifier", chance: "7.5%" },
-    { name: "MtLady", desc: "You are a giant!", howto: "Passive", effects: "3x scale, 2x HP, Step height 3", chance: "7.5%" },
-    { name: "Strongman", desc: "Pickup and throw entities!", howto: "Right-click entity", effects: "Throw (velocity 2.5)", chance: "7.5%" },
-    { name: "Superhuman", desc: "A more powerful human.", howto: "Passive", effects: "Resistance II, Speed II, Jump Boost III", chance: "7.5%" },
-    { name: "ExtraHeartMan", desc: "Extra hearts and give absorption.", howto: "Right-click player", effects: "+4 HP, Absorption II (60s) to others", chance: "7.5%" },
-    { name: "Speedster", desc: "Permanent speed IV.", howto: "Passive", effects: "Speed V", chance: "14.2%" },
-    { name: "Flashbang", desc: "Blind nearby players.", howto: "Sneak (60s cd)", effects: "AoE Blindness (20 blocks)", chance: "14.2%" },
-    { name: "Benson", desc: "Fly like Tinkerbell! Disabled for 5s on hit or when you hit someone.", howto: "Passive", effects: "Flight, disabled by Slowness II + Weakness V + Blindness for 5s on PvP.", chance: "7.5%" },
-    { name: "TheCrippler", desc: "Sneak to disable all powers within 15 blocks for 60s! A tier.", howto: "Sneak to trigger (180s cd, 120s with TempU)", effects: "AoE 15 blocks: all players set to Powerless (60s). Reverts after expiry.", chance: "7.5%" },
+  { id: "a", label: "A", item: "BARRIER", heroes: [
+    { name: "IronBlaster", desc: "Fly and unleash rapid ghast fireballs!", howto: "Jetpack + Right-click Blaze Powder", effects: "Flight, Speed VI, Fireball barrage", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "3.8%" },
+    { name: "Doomfist", desc: "You are Doomfist.", howto: "Punch air (10s cd)", effects: "Slam (8 dmg, 5 radius)", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "3.8%" },
+    { name: "Starlight", desc: "No power file found.", howto: "N/A", effects: "N/A", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "3.8%" },
+    { name: "IronMan", desc: "Genius, billionaire, playboy, philanthropist.", howto: "Jetpack (hold jump)", effects: "Flight with gliding", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "7.5%" },
+    { name: "BigBetha", desc: "You are GiantGertrude!", howto: "Passive", effects: "1.5x scale, Flight, Damage modifier", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "7.5%" },
+    { name: "MtLady", desc: "You are a giant!", howto: "Passive", effects: "3x scale, 2x HP, Step height 3", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "7.5%" },
+    { name: "Strongman", desc: "Pickup and throw entities!", howto: "Right-click entity", effects: "Throw (velocity 2.5)", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "7.5%" },
+    { name: "Superhuman", desc: "A more powerful human.", howto: "Passive", effects: "Resistance II, Speed II, Jump Boost III", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "7.5%" },
+    { name: "ExtraHeartMan", desc: "Extra hearts and give absorption.", howto: "Right-click player", effects: "+4 HP, Absorption II (60s) to others", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "7.5%" },
+    { name: "Speedster", desc: "Permanent speed IV.", howto: "Passive", effects: "Speed V", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "14.2%" },
+    { name: "Flashbang", desc: "Blind nearby players.", howto: "Sneak (60s cd)", effects: "AoE Blindness (20 blocks)", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "14.2%" },
+    { name: "Benson", desc: "Fly like Tinkerbell! Disabled for 5s on hit or when you hit someone.", howto: "Passive", effects: "Flight, disabled by Slowness II + Weakness V + Blindness for 5s on PvP.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "7.5%" },
+    { name: "TheCrippler", desc: "Sneak to disable all powers within 15 blocks for 60s! A tier.", howto: "Sneak to trigger (180s cd, 120s with TempU)", effects: "AoE 15 blocks: all players set to Powerless (60s). Reverts after expiry.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "7.5%" },
   ]},
-  { id: "b", label: "B", item: "GOLD_BLOCK", heroes: [
-    { name: "Lazer", desc: "Fire a deadly laser beam.", howto: "Right-click Echo Shard", effects: "Laser (6 dmg, 30 range)", chance: "5.7%" },
-    { name: "Gun", desc: "You have a gun.", howto: "Right-click Stone Hoe", effects: "Gun (5 dmg, 64 range)", chance: "11.4%" },
-    { name: "Robot", desc: "You\'re a robot.", howto: "Passive", effects: "No hunger, Resistance, Night vision", chance: "11.4%" },
-    { name: "Phase", desc: "Phase through the ground.", howto: "Sneak to phase", effects: "Phase 5 blocks deep", chance: "5.7%" },
-    { name: "Repulsion", desc: "Repel entities when sneaking.", howto: "Sneak", effects: "Repulse (1.5x, 10 radius)", chance: "5.7%" },
-    { name: "BlackHole", desc: "Attract entities when sneaking.", howto: "Sneak", effects: "Attract (-0.35x, 10 radius)", chance: "5.7%" },
-    { name: "GravitySucker", desc: "Control gravity.", howto: "Passive sneaking", effects: "Levitation, Slow falling, Repulse", chance: "11.4%" },
-    { name: "Sucker", desc: "You suck everything.", howto: "Sneak", effects: "Attract (-0.8x, 3.4 radius)", chance: "21.4%" },
-    { name: "Bubble", desc: "You have a bubble.", howto: "Sneak", effects: "Repulse (2x, 3.4 radius)", chance: "21.4%" },
+  { id: "b", label: "B", item: "BARRIER", heroes: [
+    { name: "Lazer", desc: "Fire a deadly laser beam.", howto: "Right-click Echo Shard", effects: "Laser (6 dmg, 30 range)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "5.7%" },
+    { name: "Gun", desc: "You have a gun.", howto: "Right-click Stone Hoe", effects: "Gun (5 dmg, 64 range)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "11.4%" },
+    { name: "Robot", desc: "You\'re a robot.", howto: "Passive", effects: "No hunger, Resistance, Night vision", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "11.4%" },
+    { name: "Phase", desc: "Phase through the ground.", howto: "Sneak to phase", effects: "Phase 5 blocks deep", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "5.7%" },
+    { name: "Repulsion", desc: "Repel entities when sneaking.", howto: "Sneak", effects: "Repulse (1.5x, 10 radius)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "5.7%" },
+    { name: "BlackHole", desc: "Attract entities when sneaking.", howto: "Sneak", effects: "Attract (-0.35x, 10 radius)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "5.7%" },
+    { name: "GravitySucker", desc: "Control gravity.", howto: "Passive sneaking", effects: "Levitation, Slow falling, Repulse", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "11.4%" },
+    { name: "Sucker", desc: "You suck everything.", howto: "Sneak", effects: "Attract (-0.8x, 3.4 radius)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "21.4%" },
+    { name: "Bubble", desc: "You have a bubble.", howto: "Sneak", effects: "Repulse (2x, 3.4 radius)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "21.4%" },
   ]},
-  { id: "c", label: "C", item: "ENCHANTED_BOOK", heroes: [
-    { name: "Stormborn", desc: "No power file found.", howto: "N/A", effects: "N/A", chance: "4.9%" },
-    { name: "Frozone", desc: "Walk on water, slow others.", howto: "Passive", effects: "Water walk, Slowness aura", chance: "4.9%" },
-    { name: "Nebular", desc: "Controls the void world.", howto: "Sneak (10s cd)", effects: "AoE 5 dmg + Blindness + Wither", chance: "4.9%" },
-    { name: "Dracula", desc: "Absorb life force.", howto: "Attack enemies", effects: "5% lifesteal, +2 max hearts per kill", chance: "9.8%" },
-    { name: "Zeus", desc: "Strike lightning.", howto: "Left-click (10s cd)", effects: "Lightning (30 range), Lightning immunity", chance: "9.8%" },
-    { name: "Midoriya", desc: "The Ninth Holder of One For All.", howto: "Sneak-jump to toggle", effects: "Full Cowling, Detroit Smash (8 dmg)", chance: "9.8%" },
-    { name: "Disguise", desc: "Trick players with disguise.", howto: "Sneak for invisibility", effects: "Invisibility, speed, decoy spawn", chance: "9.8%" },
-    { name: "DrCloak", desc: "Not attacked while disguised.", howto: "Sneak (30s cd)", effects: "10s invisibility, mobs lose target", chance: "9.8%" },
-    { name: "GravityGuy", desc: "Sneak to rise, let go to fall.", howto: "Sneak to rise", effects: "Levitation II, Slow falling", chance: "18.3%" },
-    { name: "Aerosurfer", desc: "Create platforms.", howto: "Sneak to create platforms", effects: "Glass platforms, Speed II", chance: "18.3%" },
+  { id: "c", label: "C", item: "BARRIER", heroes: [
+    { name: "Stormborn", desc: "No power file found.", howto: "N/A", effects: "N/A", obtain: "Craft C PowerShard (8 amethyst + Enchanted Book) & right-click to reroll.", chance: "4.9%" },
+    { name: "Frozone", desc: "Walk on water, slow others.", howto: "Passive", effects: "Water walk, Slowness aura", obtain: "Craft C PowerShard (8 amethyst + Enchanted Book) & right-click to reroll.", chance: "4.9%" },
+    { name: "Nebular", desc: "Controls the void world.", howto: "Sneak (10s cd)", effects: "AoE 5 dmg + Blindness + Wither", obtain: "Craft C PowerShard (8 amethyst + Enchanted Book) & right-click to reroll.", chance: "4.9%" },
+    { name: "Dracula", desc: "Absorb life force.", howto: "Attack enemies", effects: "5% lifesteal, +2 max hearts per kill", obtain: "Craft C PowerShard (8 amethyst + Enchanted Book) & right-click to reroll.", chance: "9.8%" },
+    { name: "Zeus", desc: "Strike lightning.", howto: "Left-click (10s cd)", effects: "Lightning (30 range), Lightning immunity", obtain: "Craft C PowerShard (8 amethyst + Enchanted Book) & right-click to reroll.", chance: "9.8%" },
+    { name: "Midoriya", desc: "The Ninth Holder of One For All.", howto: "Sneak-jump to toggle", effects: "Full Cowling, Detroit Smash (8 dmg)", obtain: "Craft C PowerShard (8 amethyst + Enchanted Book) & right-click to reroll.", chance: "9.8%" },
+    { name: "Disguise", desc: "Trick players with disguise.", howto: "Sneak for invisibility", effects: "Invisibility, speed, decoy spawn", obtain: "Craft C PowerShard (8 amethyst + Enchanted Book) & right-click to reroll.", chance: "9.8%" },
+    { name: "DrCloak", desc: "Not attacked while disguised.", howto: "Sneak (30s cd)", effects: "10s invisibility, mobs lose target", obtain: "Craft C PowerShard (8 amethyst + Enchanted Book) & right-click to reroll.", chance: "9.8%" },
+    { name: "GravityGuy", desc: "Sneak to rise, let go to fall.", howto: "Sneak to rise", effects: "Levitation II, Slow falling", obtain: "Craft C PowerShard (8 amethyst + Enchanted Book) & right-click to reroll.", chance: "18.3%" },
+    { name: "Aerosurfer", desc: "Create platforms.", howto: "Sneak to create platforms", effects: "Glass platforms, Speed II", obtain: "Craft C PowerShard (8 amethyst + Enchanted Book) & right-click to reroll.", chance: "18.3%" },
   ]},
-  { id: "d", label: "D", item: "BONE_BLOCK", heroes: [
-    { name: "Floral", desc: "Create and consume flowers.", howto: "Look at ground / Right-click", effects: "11 flower types with buffs", chance: "7.1%" },
-    { name: "Aquaman", desc: "Walk underwater.", howto: "Passive", effects: "Water breathing, water walking", chance: "7.1%" },
-    { name: "LavaWalker", desc: "Walk on lava.", howto: "Passive", effects: "Lava walk, fire heals, fire immunity", chance: "7.1%" },
-    { name: "Pyromaniac", desc: "Create fire trails.", howto: "Walk", effects: "Fire trail, fire/lava immunity", chance: "7.1%" },
-    { name: "Chicken", desc: "You\'re a chicken.", howto: "Passive", effects: "Lay eggs, Speed III, Slow falling", chance: "22.3%" },
-    { name: "Pig", desc: "You\'re a pig.", howto: "Passive", effects: "Pig beast control (32 range)", chance: "22.3%" },
-    { name: "Dolphin", desc: "Swim at great speeds!", howto: "Passive / Eat Ink Sac", effects: "Dolphins Grace V, Water breathing", chance: "13.4%" },
-    { name: "Tinkerbell", desc: "You are Tinkerbell!", howto: "Passive", effects: "Flight, Tiny (0.25x)", chance: "13.4%" },
+  { id: "d", label: "D", item: "BARRIER", heroes: [
+    { name: "Floral", desc: "Create and consume flowers.", howto: "Look at ground / Right-click", effects: "11 flower types with buffs", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "7.1%" },
+    { name: "Aquaman", desc: "Walk underwater.", howto: "Passive", effects: "Water breathing, water walking", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "7.1%" },
+    { name: "LavaWalker", desc: "Walk on lava.", howto: "Passive", effects: "Lava walk, fire heals, fire immunity", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "7.1%" },
+    { name: "Pyromaniac", desc: "Create fire trails.", howto: "Walk", effects: "Fire trail, fire/lava immunity", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "7.1%" },
+    { name: "Chicken", desc: "You\'re a chicken.", howto: "Passive", effects: "Lay eggs, Speed III, Slow falling", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "22.3%" },
+    { name: "Pig", desc: "You\'re a pig.", howto: "Passive", effects: "Pig beast control (32 range)", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "22.3%" },
+    { name: "Dolphin", desc: "Swim at great speeds!", howto: "Passive / Eat Ink Sac", effects: "Dolphins Grace V, Water breathing", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "13.4%" },
+    { name: "Tinkerbell", desc: "You are Tinkerbell!", howto: "Passive", effects: "Flight, Tiny (0.25x)", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "13.4%" },
   ]},
-  { id: "e", label: "E", item: "IRON_BLOCK", heroes: [
-    { name: "Spartan", desc: "Unbreakable shield + arrows.", howto: "Right-click Arrow", effects: "Unbreakable shield, infinite arrows (3 dmg)", chance: "7.1%" },
-    { name: "SpiderMan", desc: "Climb blocks!", howto: "Walk near walls", effects: "Wall climb, 90% fall reduction, web traps", chance: "14.3%" },
-    { name: "KingMidas", desc: "Turn items to gold.", howto: "Passive / Right-click", effects: "Golden Apple craft, blocks to gold", chance: "14.3%" },
-    { name: "Scavenger", desc: "Extra crafting recipes.", howto: "Craft at table", effects: "Cheap diamond tools/armor", chance: "14.3%" },
-    { name: "Mole", desc: "Instant break certain blocks.", howto: "Break dirt/stone", effects: "Instant break, Night vision", chance: "14.3%" },
-    { name: "Speleologist", desc: "Double and smelt ores!", howto: "Mine ores", effects: "Auto-smelt & double all ores", chance: "14.3%" },
-    { name: "Pickpocket", desc: "Steal from players!", howto: "Sneak + right-click", effects: "Pickpocket (3 range)", chance: "7.1%" },
-    { name: "BlowingGuy", desc: "Rise and blow away.", howto: "Sneak", effects: "Levitation, Repulse (0.8x)", chance: "7.1%" },
-    { name: "Revealer", desc: "Reveal nearby enemies.", howto: "Sneak (60s cd)", effects: "Glowing on all enemies (20 blocks)", chance: "7.1%" },
+  { id: "e", label: "E", item: "BARRIER", heroes: [
+    { name: "Spartan", desc: "Unbreakable shield + arrows.", howto: "Right-click Arrow", effects: "Unbreakable shield, infinite arrows (3 dmg)", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "7.1%" },
+    { name: "SpiderMan", desc: "Climb blocks!", howto: "Walk near walls", effects: "Wall climb, 90% fall reduction, web traps", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
+    { name: "KingMidas", desc: "Turn items to gold.", howto: "Passive / Right-click", effects: "Golden Apple craft, blocks to gold", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
+    { name: "Scavenger", desc: "Extra crafting recipes.", howto: "Craft at table", effects: "Cheap diamond tools/armor", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
+    { name: "Mole", desc: "Instant break certain blocks.", howto: "Break dirt/stone", effects: "Instant break, Night vision", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
+    { name: "Speleologist", desc: "Double and smelt ores!", howto: "Mine ores", effects: "Auto-smelt & double all ores", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
+    { name: "Pickpocket", desc: "Steal from players!", howto: "Sneak + right-click", effects: "Pickpocket (3 range)", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "7.1%" },
+    { name: "BlowingGuy", desc: "Rise and blow away.", howto: "Sneak", effects: "Levitation, Repulse (0.8x)", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "7.1%" },
+    { name: "Revealer", desc: "Reveal nearby enemies.", howto: "Sneak (60s cd)", effects: "Glowing on all enemies (20 blocks)", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "7.1%" },
   ]},
-  { id: "f", label: "F", item: "ZOMBIE_HEAD", heroes: [
-    { name: "Creeper", desc: "You\'re a creeper.", howto: "Right-click to explode", effects: "Explosion (power 1), Remote detonation", chance: "5.4%" },
-    { name: "Enderman", desc: "Teleport by punching.", howto: "Left-click (10s cd)", effects: "Teleport 30 blocks, OHKO Endermen", chance: "10.8%" },
-    { name: "SkeletonKing", desc: "Lead an army of skeletons!", howto: "Passive", effects: "Skeleton control, spawn skeletons", chance: "5.4%" },
-    { name: "Zombie", desc: "You are a zombie!", howto: "Passive", effects: "Resistance II, knockback, burns in sun", chance: "10.8%" },
-    { name: "Dragon", desc: "Throw fireballs.", howto: "Right-click (30s cd)", effects: "Dragon fireballs", chance: "5.4%" },
-    { name: "Dragon2", desc: "Suck and blow everyone!", howto: "Right-click (2s cd)", effects: "Levitation X, Repulse, Wind Charges", chance: "5.4%" },
-    { name: "Slime", desc: "Bounce along the floor.", howto: "Passive", effects: "Bouncy, No fall damage", chance: "20.3%" },
-    { name: "IronGolem", desc: "You\'re an iron golem.", howto: "Passive", effects: "Iron ingots, Resistance II, Slowness II", chance: "10.8%" },
-    { name: "Guardian", desc: "No power file found.", howto: "N/A", effects: "N/A", chance: "5.4%" },
-    { name: "Snowman", desc: "Create snow trails!", howto: "Walk / Throw snowballs", effects: "Snow trail, infinite snowballs", chance: "20.3%" },
+  { id: "f", label: "F", item: "BARRIER", heroes: [
+    { name: "Creeper", desc: "You\'re a creeper.", howto: "Right-click to explode", effects: "Explosion (power 1), Remote detonation", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "5.4%" },
+    { name: "Enderman", desc: "Teleport by punching.", howto: "Left-click (10s cd)", effects: "Teleport 30 blocks, OHKO Endermen", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "10.8%" },
+    { name: "SkeletonKing", desc: "Lead an army of skeletons!", howto: "Passive", effects: "Skeleton control, spawn skeletons", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "5.4%" },
+    { name: "Zombie", desc: "You are a zombie!", howto: "Passive", effects: "Resistance II, knockback, burns in sun", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "10.8%" },
+    { name: "Dragon", desc: "Throw fireballs.", howto: "Right-click (30s cd)", effects: "Dragon fireballs", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "5.4%" },
+    { name: "Dragon2", desc: "Suck and blow everyone!", howto: "Right-click (2s cd)", effects: "Levitation X, Repulse, Wind Charges", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "5.4%" },
+    { name: "Slime", desc: "Bounce along the floor.", howto: "Passive", effects: "Bouncy, No fall damage", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "20.3%" },
+    { name: "IronGolem", desc: "You\'re an iron golem.", howto: "Passive", effects: "Iron ingots, Resistance II, Slowness II", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "10.8%" },
+    { name: "Guardian", desc: "No power file found.", howto: "N/A", effects: "N/A", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "5.4%" },
+    { name: "Snowman", desc: "Create snow trails!", howto: "Walk / Throw snowballs", effects: "Snow trail, infinite snowballs", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "20.3%" },
   ]},
-  { id: "f_minus", label: "F-", item: "COAL_BLOCK", heroes: [
-    { name: "Powerless", desc: "You have no power.", howto: "N/A", effects: "Nothing. Normal player.", chance: "100.0%" },
+  { id: "f_minus", label: "F-", item: "BARRIER", heroes: [
+    { name: "Powerless", desc: "You have no power.", howto: "N/A", effects: "Nothing. Normal player.", obtain: "Craft F- PowerShard (8 amethyst + Coal Block) & right-click to reroll.", chance: "100.0%" },
   ]},
 ];
 const C = {"spp":"spp-tier","s":"s-tier","a":"a-tier","b":"b-tier","c":"c-tier","d":"d-tier","e":"e-tier","f":"f-tier","f_minus":"f_minus-tier"};
-const S = 4;
-function render(){const e=document.getElementById("app");let h='';if(S>0){h+='<div class="secret-banner">There are <strong>'+S+'</strong> secret powers not shown — obtainable only through special means!</div>'}e.innerHTML=h+TIERS.map((t,i)=>{const r=t.id!="spp"?"collapsed":"";return`<div class="tier ${C[t.id]} ${r}" onclick="this.classList.toggle('collapsed')"><div class="tier-header"><span class="tier-rank">${t.label}</span><span class="tier-item">${t.item}</span><span class="tier-rarity">${t.heroes.length} powers</span><span class="tier-toggle">▼</span></div><div class="tier-content">${t.heroes.map(h=>`<div class="hero-card${h.name==='Powerless'?' powerless':''}"><h3>${h.name}</h3><div class="hero-desc">${h.desc}</div><div class="hero-meta"><span class="meta-tag howto">${h.howto}</span><span class="meta-tag">${h.effects}</span><span class="meta-tag chance">${h.chance}</span></div></div>`).join("")}</div></div>`}).join("")}render();
+const S = 5;
+function render(){const e=document.getElementById("app");let h='<div class="howto-box"><h2>⚡ How to Get Powers</h2><ol><li><strong>Craft a PowerShard</strong> — 8 amethyst shards + a tier item around it in a crafting table. Each tier (S++ through F-) needs a different item.</li><li><strong>Right-click the PowerShard</strong> to reroll a random power from that tier. The tier item determines which tier you roll.</li><li><strong>Find TempU potions</strong> in structure chests (25% chance) or buy from the Wandering Trader. Drink for a random hero (or boost your current one).</li><li><strong>Find CompoundU potions</strong> in structure chests (25% chance) — high risk, high reward. Random hero from a tier with a chance of death.</li><li><strong>Secret powers</strong> have special unlock methods — use <code>/powers clues</code> on Discord to find them.</li></ol></div>';if(S>0){h+='<div class="secret-banner">There are <strong>'+S+'</strong> secret powers not shown — obtainable only through special means!</div>'}e.innerHTML=h+TIERS.map((t,i)=>{const r=t.id!="spp"?"collapsed":"";return`<div class="tier ${C[t.id]} ${r}" onclick="this.classList.toggle('collapsed')"><div class="tier-header"><span class="tier-rank">${t.label}</span><span class="tier-item">${t.item}</span><span class="tier-rarity">${t.heroes.length} powers</span><span class="tier-toggle">▼</span></div><div class="tier-content">${t.heroes.map(h=>`<div class="hero-card${h.name==='Powerless'?' powerless':''}"><h3>${h.name}</h3><div class="hero-desc">${h.desc}</div><div class="hero-meta"><span class="meta-tag howto">${h.howto}</span><span class="meta-tag">${h.effects}</span><span class="meta-tag chance">${h.chance}</span><span class="meta-tag obtain">${h.obtain}</span></div></div>`).join("")}</div></div>`}).join("")}render();
 </script>
 </body>
 </html>
