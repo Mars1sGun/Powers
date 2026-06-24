@@ -1,217 +1,215 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Superheroes Tierlist</title>
-<meta property="og:title" content="Superheroes Tierlist">
-<meta property="og:description" content="All powers ranked across 9 tiers with drop chances, controls, and effects.">
-<meta property="og:image" content="https://mars1sgun.github.io/Powers/og-image.png">
-<meta property="og:url" content="https://mars1sgun.github.io/Powers/">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#e94560">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh}
-header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);padding:2rem;text-align:center;border-bottom:3px solid #e94560}
-header h1{font-size:2.5rem;font-weight:900;background:linear-gradient(90deg,#e94560,#0f3460,#e94560);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s ease-in-out infinite}
-header p{color:#a0a0b0;margin-top:.5rem;font-size:1.1rem}
-@keyframes shimmer{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
-.container{max-width:1400px;margin:0 auto;padding:1rem}
-.tier{background:rgba(255,255,255,.03);border-radius:12px;margin:1rem 0;overflow:hidden;border:1px solid rgba(255,255,255,.06);transition:box-shadow .3s}
-.tier:hover{box-shadow:0 0 30px rgba(233,69,96,.1)}
-.tier-header{display:flex;align-items:center;padding:.75rem 1.25rem;gap:.75rem;cursor:pointer;user-select:none}
-.tier-rank{font-weight:900;font-size:1.3rem;min-width:50px;text-align:center;padding:.25rem .75rem;border-radius:8px}
-.tier-name{font-weight:700;font-size:1.1rem;flex:1}
-.tier-item{font-size:.8rem;color:#888;background:rgba(255,255,255,.05);padding:.2rem .6rem;border-radius:4px}
-.tier-rarity{font-size:.8rem;color:#888}
-.tier-toggle{font-size:1.2rem;color:#666;transition:transform .3s}
-.tier.collapsed .tier-toggle{transform:rotate(-90deg)}
-.tier-content{display:flex;flex-wrap:wrap;gap:.75rem;padding:0 1.25rem 1.25rem}
-.tier.collapsed .tier-content{display:none}
-.hero-card{background:rgba(255,255,255,.04);border-radius:10px;padding:.75rem;width:calc(33.333% - .5rem);border:1px solid rgba(255,255,255,.06);transition:all .3s;position:relative;overflow:hidden}
-.hero-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.3);border-color:rgba(255,255,255,.15)}
-.hero-card h3{font-size:1rem;font-weight:700;margin-bottom:.25rem}
-.hero-desc{font-size:.8rem;color:#999;line-height:1.4;margin-bottom:.5rem}
-.hero-meta{display:flex;gap:.5rem;flex-wrap:wrap;font-size:.7rem;align-items:center}
-.meta-tag{background:rgba(255,255,255,.06);padding:.15rem .5rem;border-radius:4px;color:#aaa}
-.meta-tag.howto{background:rgba(233,69,96,.15);color:#e94560}
-.meta-tag.obtain{background:rgba(79,195,247,.12);color:#4fc3f7;grid-column:1/-1;margin-top:2px}
-.meta-tag.chance{background:rgba(255,215,0,.12);color:#ffd700;font-weight:700}
-.spp-tier .tier-rank{background:linear-gradient(135deg,#ffd700,#ff8c00,#ffd700);color:#111}
-.spp-tier{border-color:#ffd700!important}.spp-tier .tier-header{background:linear-gradient(90deg,rgba(255,215,0,.08),transparent)}
-.s-tier .tier-rank{background:linear-gradient(135deg,#ff6b6b,#ee5a24);color:#fff}
-.a-tier .tier-rank{background:linear-gradient(135deg,#f093fb,#f5576c);color:#fff}
-.b-tier .tier-rank{background:linear-gradient(135deg,#4facfe,#00f2fe);color:#fff}
-.c-tier .tier-rank{background:linear-gradient(135deg,#43e97b,#38f9d7);color:#111}
-.d-tier .tier-rank{background:linear-gradient(135deg,#fa709a,#fee140);color:#111}
-.e-tier .tier-rank{background:linear-gradient(135deg,#a8edea,#fed6e3);color:#111}
-.f-tier .tier-rank{background:linear-gradient(135deg,#d8d8d8,#999);color:#111}
-.f_minus-tier .tier-rank{background:linear-gradient(135deg,#555,#333);color:#888}
-.howto-box{background:rgba(79,195,247,.08);border:1px solid rgba(79,195,247,.3);border-radius:12px;padding:1.25rem;margin:1.25rem 0;text-align:left}
-.howto-box h2{color:#4fc3f7;font-size:1.2rem;font-weight:800;margin-bottom:.75rem;text-align:center}
-.howto-box ol{list-style:none;counter-reset:item;padding:0}
-.howto-box ol li{counter-increment:item;padding:.4rem 0 .4rem 2.2rem;position:relative;font-size:.85rem;color:#ccc;line-height:1.5}
-.howto-box ol li::before{content:counter(item);position:absolute;left:0;top:.4rem;background:#4fc3f7;color:#0a0a0f;width:1.5rem;height:1.5rem;border-radius:50%;font-size:.75rem;font-weight:800;display:flex;align-items:center;justify-content:center}
-.howto-box ol li strong{color:#fff}
-.howto-box ol li code{background:rgba(255,255,255,.08);padding:.1rem .4rem;border-radius:4px;font-size:.8rem;color:#4fc3f7}
-.craft-section{background:rgba(79,195,247,.04);border:1px solid rgba(79,195,247,.15);border-radius:12px;padding:1.25rem;margin:1.25rem 0}
-.craft-section h2{color:#4fc3f7;font-size:1.2rem;font-weight:800;margin-bottom:1rem;text-align:center}
-.craft-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem}
-.craft-card{background:rgba(255,255,255,.03);border-radius:10px;padding:.5rem;text-align:center;border:1px solid rgba(255,255,255,.06)}
-.craft-card img{width:100%;max-width:180px;height:auto;border-radius:6px;display:block;margin:0 auto}
-.craft-card .craft-label{font-size:.75rem;color:#aaa;margin-top:.35rem;font-weight:600}
-.craft-powershard{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-bottom:1rem}
-.craft-powershard .craft-card{width:calc(33.333% - .5rem);min-width:160px;flex:1}
-.secret-banner{background:rgba(233,69,96,.12);border:2px solid #e94560;border-radius:12px;padding:1rem;text-align:center;margin:1rem 0;font-size:1rem;color:#e94560}
-.hero-card.powerless{opacity:.4;filter:grayscale(1)}
-.hero-card.powerless:hover{opacity:.8;filter:grayscale(.5)}
-@media(max-width:900px){.hero-card{width:calc(50% - .5rem)}}
-@media(max-width:600px){.hero-card{width:100%}header h1{font-size:1.8rem}}
-footer{text-align:center;padding:2rem;color:#b388ff;font-size:.8rem}
-footer a{color:#b388ff;text-decoration:underline}
-</style>
-</head>
-<body>
-<header>
-<h1>SUPERHEROES TIERLIST</h1>
-<p>All powers ranked — click a tier to expand/collapse</p>
-<p style="margin-top:.5rem;font-size:.9rem;color:#4fc3f7">Bedrock: <b>138.201.255.236</b> port <b>5183</b> &nbsp;|&nbsp; Java: <b>pammers.lhg.gg:5106</b></p>
-</header>
-<div class="container" id="app"></div>
-<footer>Built by 1sGun &middot; join the discord <a href="https://discord.gg/srqWWpAAYW" target="_blank">https://discord.gg/srqWWpAAYW</a></footer>
-<script>
-
-const TIERS = [
-  { id: "spp", label: "S++", item: "DEEPSLATE_EMERALD_ORE", heroes: [
-    { name: "Tank", desc: "Reinforce yourself and repair all your gear.", howto: "Sneak (120s cd)", effects: "Resistance III, Absorption III, full repair", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "28.6%" },
-    { name: "Timeweaver", desc: "Stop time and teleport through space.", howto: "Left-click (5s cd) / Sneak (60s cd)", effects: "Teleport 30 blocks, Time Stop 15s", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "7.1%" },
-    { name: "Swiper", desc: "Shift-click a player to steal their power for 60s! S++ tier.", howto: "Sneak + right-click target player (180s cd, 120s with TempU)", effects: "Steal target's hero (60s), target becomes Powerless. Reverts after expiry.", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "7.1%" },
-    { name: "Ichigo", desc: "You are Ichigo Kurosaki, a Soul Reaper from Karakura Town!", howto: "Zangetsu Stick: RC=slash, Sneak+RC=Getsuga Tensho. Hollowfication: RC toggle (hunger drain). Bankai: RC activate. Cero, Horn, True Bankai, FGT forms.", effects: "Zangetsu melee (8 dmg), Getsuga Tensho (10 dmg), Hollowfication (Speed+Strength), Bankai, Horn (Str V+Res IV), True Bankai, FGT (half HP). TempU: halved hunger, extended forms.", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "14.3%" },
-    { name: "Airbender", desc: "Master of the skies! Infinite double jump, no fall damage, wind powers.", howto: "Infinite double jump (space mid-air), no fall damage. Sprint for wind boost. Right-click Stick: Air Blast (1s) / Tornado (20s) / Wind Shield (15s). TempU: +Airburst stick, halved cooldowns, bigger/longer tornado", effects: "N/A", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "21.4%" },
-    { name: "Hooked", desc: "Sneak with a sword/spear/mace to pull entities toward you. Look down and sneak for Golden Stance — invulnerable, regeneration, knockback aura.", howto: "N/A", effects: "N/A", obtain: "", chance: "7.1%" },
-    { name: "Forcefield", desc: "Create a bubble shield that blocks all damage!", howto: "Right-click stick to toggle shield. 25 HP, blocks all damage. Obsidian refuels food. 30s cd on break.", effects: "25 HP shield (50 TempU), blocks all damage. Barrier traps entities. Projectiles bounce. TempU: 50 HP, 6m radius, half hunger.", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "14.3%" },
-  ]},
-  { id: "s", label: "S", item: "NETHER_STAR", heroes: [
-    { name: "Homelander", desc: "Fly through the skies and blast foes with laser vision and fireballs!", howto: "Jetpack (hold jump) + Right-click Redstone Block", effects: "Flight, Speed II, Strength II, Resistance II, Laser (6 dmg), Fireballs, X-ray", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "3.2%" },
-    { name: "Butcher", desc: "super strength, and grabbing tentacles!", howto: "Right-click BLACK_CONCRETE_POWDER to summon tentacle — left-click damage/chuck, right-click hold/drag", effects: "Speed I, Strength III, Resistance II, no fall damage, tentacle grab (drag/chuck/damage)", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "3.2%" },
-    { name: "Goku", desc: "You are an Adult Saiyan.", howto: "Right-click Breeze Rod (10s cd)", effects: "Ki Blast (5 dmg, 100 range), Speed VI, Jump Boost IV, Strength II, +20% HP", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "3.2%" },
-    { name: "Atrain", desc: "Super speedster.", howto: "Eat Sugar / Sneak (30s cd)", effects: "Speed VI, burst Speed XI, AoE slowness", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "3.2%" },
-    { name: "Eraserhead", desc: "Erase other people\'s powers by sneaking.", howto: "Sneak near target (30 range)", effects: "Power erasure on target", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "3.2%" },
-    { name: "Sorcerer", desc: "Create magical spell books using redstone.", howto: "Craft books with redstone", effects: "12+ spells: Fireball, Lightning, Explosion, etc.", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "12.9%" },
-    { name: "Terrorist", desc: "Explosive power.", howto: "Right-click to detonate", effects: "Creeper explosion (power 10), Remote detonation", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "12.9%" },
-    { name: "Heatwave", desc: "Engulf your surroundings in scorching flames!", howto: "Sneak (40s cd)", effects: "AoE fire (10 dmg), Ignite, Nausea", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
-    { name: "Archer", desc: "Shoot arrows and repel everyone!", howto: "Right-click Feather (2s cd)", effects: "Levitation, Repulsion, Infinite arrows", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
-    { name: "Almight", desc: "Sneak to become stronger.", howto: "Sneak (65s cd)", effects: "Strength VI, Resistance VI, Regen VI, Absorption VI", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
-    { name: "Mirror", desc: "Shift-click a player to copy their power for 60s! S tier.", howto: "Sneak + right-click target player (180s cd, 120s with TempU)", effects: "Copy target's hero (60s), target keeps theirs. Reverts after expiry.", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
-    { name: "SoulLink", desc: "Link souls with another entity — health is shared!", howto: "Right-click Stick on entity to link (30s) — Shift+right-click to unlink (10s cd)", effects: "Link to any entity — shared health pool, linked entity dies if you die and vice versa. Red particle trail. TempU halves cooldown.", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
-    { name: "Starlight", desc: "Fly and fire light arrows that debuff and explode!", howto: "Jetpack (hold jump) — Right-click Glowstone Dust to fire a glowing light arrow (4 shots per 5s) — explodes on hit", effects: "Jetpack flight, glowing light arrow (6 dmg + firework explosion + Blindness + Slowness II + Nausea), Strength II, Resistance I", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "3.2%" },
-    { name: "Morph", desc: "Kill mobs to store their form, then transform into them!", howto: "Kill a mob to store it in a slot — right-click to transform (30s duration)", effects: "N/A", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
-    { name: "Telekinesis", desc: "Bend blocks, mobs, and gravity with psychic power!", howto: "TeleCore: RC=select, LC=release, Sneak+RC=throw, Sneak+LC=pull | Psychic Flight: RC=toggle, LC=dash | Block Shield: RC=create, LC=launch block, Sneak+LC=dismiss | Gravity Pull: RC=pulse (pull+launch), LC=force pull, Sneak+RC=vacuum | Psychic Blast: RC=fire, LC=push, Sneak+RC=shockwave", effects: "All abilities share hunger as energy. Purple psychic visuals. TempU boosts shield/blast block count and gravity launch height.", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
-    { name: "Redliner", desc: "A momentum-based movement shooter. Bhop to build speed, shoot momentum bullets, grapple, parry, and slow fall.", howto: "Q=Gun (costs 100 momentum), F=Grapple (40-block hook), RC=Parry (2s universal parry), Shift=Slow Falling, Double-tap Sprint= Dash (3 charges), Sprint-jump=Bhop (builds speed+momentum). Melee dmg scales with momentum.", effects: "Bhop: chain jumps for speed+momentum. Gun: Arrow projectile, dmg=4xmomentumMult. Grapple: 40-block pull. Parry: 2s universal parry (first 0.5s perfect). Melee: (6+speed*20)xmomentumMult. Shift: Slow Falling. Dash: 3 charges. Speed-hit: 3 hits in 5s = 2s stun. Wallrun 5s. Momentum: 100=1bullet, 200=2xmult, 300=2.5xmult.", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "3.2%" },
-    { name: "Moxie", desc: "Kill chain! Each kill on a hostile mob/player: +50% damage per stage (max VI). TempU gives +2 stages per kill.", howto: "Passive — kill chain. Kill hostile mobs/players to stack damage.", effects: "Each kill on hostile mob/player: +50% damage per stage (max VI). TempU: +2 stages per kill. Action bar shows current stage and bonus.", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
-  ]},
-  { id: "a", label: "A", item: "DIAMOND_BLOCK", heroes: [
-    { name: "Earthbender", desc: "Control the earth around you!", howto: "Right-click Stick: Rock Blast (1s) / Earthquake (10s) / Raise Wall (10s)", effects: "N/A", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "IronBlaster", desc: "Fly and unleash rapid ghast fireballs!", howto: "Jetpack + Right-click Blaze Powder", effects: "Flight, Speed VI, Fireball barrage", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "2.3%" },
-    { name: "Doomfist", desc: "You are Doomfist.", howto: "Punch air (10s cd)", effects: "Slam (8 dmg, 5 radius)", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "2.3%" },
-    { name: "Clone", desc: "Spawn a skeleton clone that fights for you!", howto: "Sneak to summon clone (30s cd)", effects: "Skeleton clone with your skin/armor, follows, attacks who you hit or who hits you", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "Necromancer", desc: "Kill mobs to fill 3 summon slots (2 kills/summon, 10 for bosses). Minions follow, attack who you attack. TempU halves kill req.", howto: "Kill mobs to fill summon slots — right-click Bone to summon (2 kills per summon)", effects: "N/A", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "IronMan", desc: "Genius, billionaire, playboy, philanthropist.", howto: "Jetpack (hold jump)", effects: "Flight with gliding", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "BigBetha", desc: "You are GiantGertrude!", howto: "Passive", effects: "1.5x scale, Flight, Damage modifier", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "MtLady", desc: "You are a giant!", howto: "Passive", effects: "3x scale, 2x HP, Step height 3", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "Strongman", desc: "Pickup and throw entities!", howto: "Right-click entity", effects: "Throw (velocity 2.5)", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "Superhuman", desc: "A more powerful human.", howto: "Passive", effects: "Resistance II, Speed II, Jump Boost III", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "PowerOfPanic", desc: "Low HP gives strength, full HP makes you sluggish!", howto: "Passive — automatic based on HP", effects: "Below 50%: Strength II + Speed II. Below 25%: Strength III + Speed III + Resistance II. Above 95%: Weakness I. TempU boosts all effects +1 level.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "ExtraHeartMan", desc: "Extra hearts and give absorption.", howto: "Right-click player", effects: "+4 HP, Absorption II (60s) to others", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "Speedster", desc: "Permanent speed IV.", howto: "Passive", effects: "Speed V", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "8.6%" },
-    { name: "Flashbang", desc: "Blind nearby players.", howto: "Sneak (60s cd)", effects: "AoE Blindness (20 blocks)", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "8.6%" },
-    { name: "Benson", desc: "Fly like Tinkerbell! Disabled for 5s on hit or when you hit someone.", howto: "Passive", effects: "Flight, disabled by Slowness II + Weakness V + Blindness for 5s on PvP.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "TheCrippler", desc: "Sneak to disable all powers within 15 blocks for 60s! A tier.", howto: "Sneak to trigger (180s cd, 120s with TempU)", effects: "AoE 15 blocks: all players set to Powerless (60s). Reverts after expiry.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "TheCombo", desc: "Hit AND get hit to stack both atk and def - 1s window!", howto: "Passive - hitting AND getting hit builds combo for both +atk and -def", effects: "+atk per hit, -def per hit taken (1s window). TempU: 0.5s, 2x multiplier.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "Sacrifice", desc: "Kill to heal - convert items into totems!", howto: "Passive - kills heal below 20 HP. Sneak with item to sacrifice for totem (60s cd, 30s TempU).", effects: "Kill heal below 20 HP. Sneak with item = 1 totem (60s cd, 30s TempU).", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "PocketDimension", desc: "Enter your own pocket dimension or trap others inside one!", howto: "Right-click Pocket Dimension stick: enter your own pocket world (30s, 60s TempU, 60s cd). Right-click Pocket Trap stick on a player: trap them in a pocket box (30s, 60s TempU, 30s cd).", effects: "Personal: enter a 6x7 pocket world for 30s (60s TempU, 60s cd / 30s TempU). Trap: trap a target player in a pocket box for 30s (60s TempU, 30s cd / 15s TempU). No fall damage in pocket.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "Waterbender", desc: "Master of water and ice! Water breathing, dolphins grace, hydro step, torpedo dash, water blast, ice wall, healing rain, and water wave.", howto: "Passive: Water Breathing + Dolphins Grace (Conduit Power in water). Right-click Stick: Water Blast (no cd) / Ice Wall (12s) / Healing Rain (25s) / Water Wave (5s, 2.5s TempU) / Hydro Step (toggle, no cd). Sprint in water: Torpedo dash. Eat fish: 4x hunger.", effects: "Water Breathing + Dolphins Grace (Conduit in water). Water Blast (6 dmg, no cd, temp ice on impact). Ice Wall (packed ice, 12s cd, despawns). Healing Rain (25s cd, AoE heal). Water Wave (5 dmg, 18 blocks, 5s cd). Hydro Step (toggle, water blocks under feet, ascend in water). Torpedo (sprint in water: boost + 4 dmg, 3 range, hunger drain). Eat fish: 4x hunger. TempU: +dmg, +range, less hunger, longer Ice Wall.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-    { name: "Sturdy", desc: "At full HP, survive any fatal hit with 1 HP instead.", howto: "Passive — automatic when at full HP.", effects: "At full HP, any fatal hit leaves you at 1 HP instead. Action bar shows 'Sturdy activated!' on proc.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
-  ]},
-  { id: "b", label: "B", item: "GOLD_BLOCK", heroes: [
-    { name: "SizeShift", desc: "Shrink or grow at will!", howto: "Right-click Amethyst Shard to shrink — Right-click Emerald to grow (30s duration)", effects: "Shrink: 0.25x scale, fast speed/attacks. Grow: 1.5x scale, +6 dmg, slow speed/attacks", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "7.8%" },
-    { name: "Lazer", desc: "Fire a deadly laser beam.", howto: "Right-click Echo Shard", effects: "Laser (6 dmg, 30 range)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "3.9%" },
-    { name: "Gun", desc: "You have a gun.", howto: "Right-click Stone Hoe", effects: "Gun (5 dmg, 64 range)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "7.8%" },
-    { name: "Robot", desc: "You\'re a robot.", howto: "Passive", effects: "No hunger, Resistance, Night vision", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "7.8%" },
-    { name: "Phase", desc: "Phase through the ground.", howto: "Sneak to phase", effects: "Phase 5 blocks deep", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "3.9%" },
-    { name: "Repulsion", desc: "Repel entities when sneaking.", howto: "Sneak", effects: "Repulse (1.5x, 10 radius)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "3.9%" },
-    { name: "BlackHole", desc: "Attract entities when sneaking.", howto: "Sneak", effects: "Attract (-0.35x, 10 radius)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "3.9%" },
-    { name: "GravitySucker", desc: "Control gravity.", howto: "Passive sneaking", effects: "Levitation, Slow falling, Repulse", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "7.8%" },
-    { name: "Sucker", desc: "You suck everything.", howto: "Sneak", effects: "Attract (-0.8x, 3.4 radius)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "14.7%" },
-    { name: "Bubble", desc: "You have a bubble.", howto: "Sneak", effects: "Repulse (2x, 3.4 radius)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "14.7%" },
-    { name: "ComboDefence", desc: "Get hit rapidly to stack endurance - 1s combo window!", howto: "Passive - get hit within 1s to stack Resistance + Absorption", effects: "Resistance + Absorption per hit (1s window). TempU: 0.5s window, 2x amp per stack.", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "7.8%" },
-    { name: "ComboOffence", desc: "Hit rapidly to stack strength - 1s combo window!", howto: "Passive - hit targets within 1s to stack Strength", effects: "Strength per hit (1s window). TempU: 0.5s window, 2x amp per stack.", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "7.8%" },
-    { name: "PortalGun", desc: "Place linked portals to teleport across the world!", howto: "Blue/Orange stick to place portals. Walk through to teleport. Sneak+RC to remove.", effects: "Glass block portal ring, 30s, 60 range. 4x velocity through portals. TempU: 200 range, 60s.", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "3.9%" },
-    { name: "NoGuard", desc: "All melee damage you deal and receive ignores armor, strength, and weakness.", howto: "Passive — your melee attacks and melee damage taken both ignore armor + strength + weakness.", effects: "Personal passive: all melee damage dealt and taken ignores armor + strength + weakness.", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "3.9%" },
-  ]},
-  { id: "c", label: "C", item: "BOOKSHELF", heroes: [
-    { name: "Frozone", desc: "Walk on water, slow others.", howto: "Passive", effects: "Water walk, Slowness aura", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "3.6%" },
-    { name: "Nebular", desc: "Controls the void world.", howto: "Sneak (10s cd)", effects: "AoE 5 dmg + Blindness + Wither", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "3.6%" },
-    { name: "Dracula", desc: "Absorb life force.", howto: "Attack enemies", effects: "5% lifesteal, +2 max hearts per kill", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
-    { name: "Zeus", desc: "Strike lightning.", howto: "Left-click (10s cd)", effects: "Lightning (30 range), Lightning immunity", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
-    { name: "Midoriya", desc: "The Ninth Holder of One For All.", howto: "Sneak-jump to toggle", effects: "Full Cowling, Detroit Smash (8 dmg)", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
-    { name: "Disguise", desc: "Trick players with disguise.", howto: "Sneak for invisibility", effects: "Invisibility, speed, decoy spawn", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
-    { name: "DrCloak", desc: "Not attacked while disguised.", howto: "Sneak (30s cd)", effects: "10s invisibility, mobs lose target", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
-    { name: "GravityGuy", desc: "Sneak to rise, let go to fall.", howto: "Sneak to rise", effects: "Levitation II, Slow falling", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "13.6%" },
-    { name: "Aerosurfer", desc: "Create platforms.", howto: "Sneak to create platforms", effects: "Glass platforms, Speed II", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "13.6%" },
-    { name: "Coinflip", desc: "Sneak every 30s for 3 random effects - all good or all bad!", howto: "Sneak to flip (30s cd) - 3 random effects for 15s", effects: "3 random potion effects (15s, lvl 1). TempU: lvl 2.", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
-    { name: "Rabbit", desc: "Speed II + Jump II + no fall damage - auto-burrow on landing! TempU: Super Jump (sneak).", howto: "Passive: Speed II + Jump II + no fall damage. Landing = AoE stomp + auto-burrow. Sneak to unburrow early. TempU: Super Jump (sneak 10s cd).", effects: "Speed II, Jump II, no fall damage. Stomp + auto-burrow on landing. Sneak to unburrow early. TempU: 1.5x + Super Jump (sneak 10s cd).", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
-    { name: "DamageDelay", desc: "Sneak to absorb damage, unsneak to release AoE!", howto: "Sneak to absorb all damage (Weakness+Slowness applied). Unsneak to release AoE explosion (self-damage 30%).", effects: "Sneak: absorbs all damage, Weakness C+Slowness C. Unsneak: AoE explosion, 30% self-damage. TempU: 1.5x radius.", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
-    { name: "Intimidate", desc: "An intimidating aura — enemies within range deal 33% less melee damage!", howto: "Passive — automatic melee damage reduction aura in a 5-block radius (10 with TempU).", effects: "All entities within 5 blocks deal 33% less melee damage. TempU: range 10 blocks. Action bar shows intimidation count.", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "3.6%" },
-    { name: "Guts", desc: "When poisoned, burning, slowed, or freezing — deal 50% more damage!", howto: "Passive — automatic when poisoned, on fire, in lava, slowed, or freezing.", effects: "+50% melee damage when poisoned, on fire, in lava, slowed, or freezing.", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "3.6%" },
-  ]},
-  { id: "d", label: "D", item: "BONE_BLOCK", heroes: [
-    { name: "Floral", desc: "Create and consume flowers.", howto: "Look at ground / Right-click", effects: "11 flower types with buffs", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "7.8%" },
-    { name: "Aquaman", desc: "Walk underwater.", howto: "Passive", effects: "Water breathing, water walking", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "7.8%" },
-    { name: "LavaWalker", desc: "Walk on lava.", howto: "Passive", effects: "Lava walk, fire heals, fire immunity", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "7.8%" },
-    { name: "Pyromaniac", desc: "Create fire trails.", howto: "Walk", effects: "Fire trail, fire/lava immunity", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "7.8%" },
-    { name: "Anvil", desc: "The higher you fall, the more AoE damage and stun you deal to nearby enemies. No fall damage for you — but you get stunned too! TempU: 2x all values.", howto: "N/A", effects: "N/A", obtain: "", chance: "7.8%" },
-    { name: "Chicken", desc: "You\'re a chicken.", howto: "Passive", effects: "Lay eggs, Speed III, Slow falling", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "24.3%" },
-    { name: "Dolphin", desc: "Swim at great speeds!", howto: "Passive / Eat Ink Sac", effects: "Dolphins Grace V, Water breathing", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "14.6%" },
-    { name: "Tinkerbell", desc: "You are Tinkerbell!", howto: "Passive", effects: "Flight, Tiny (0.25x)", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "14.6%" },
-    { name: "EmergencyExit", desc: "Fatal damage teleports you away instead of killing you!", howto: "Passive - teleports to safety on fatal damage (100s cd, 50s TempU)", effects: "Teleport to safety on fatal damage. 100s cd (50s TempU).", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "7.8%" },
-  ]},
-  { id: "e", label: "E", item: "IRON_BLOCK", heroes: [
-    { name: "Spartan", desc: "Unbreakable shield + arrows.", howto: "Right-click Arrow", effects: "Unbreakable shield, infinite arrows (3 dmg)", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "7.1%" },
-    { name: "SpiderMan", desc: "Climb blocks!", howto: "Walk near walls", effects: "Wall climb, 90% fall reduction, web traps", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
-    { name: "KingMidas", desc: "Turn items to gold.", howto: "Passive / Right-click", effects: "Golden Apple craft, blocks to gold", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
-    { name: "Scavenger", desc: "Extra crafting recipes.", howto: "Craft at table", effects: "Cheap diamond tools/armor", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
-    { name: "Mole", desc: "Instant break certain blocks.", howto: "Break dirt/stone", effects: "Instant break, Night vision", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
-    { name: "Speleologist", desc: "Double and smelt ores!", howto: "Mine ores", effects: "Auto-smelt & double all ores", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
-    { name: "Pickpocket", desc: "Steal from players!", howto: "Sneak + right-click", effects: "Pickpocket (3 range)", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "7.1%" },
-    { name: "BlowingGuy", desc: "Rise and blow away.", howto: "Sneak", effects: "Levitation, Repulse (0.8x)", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "7.1%" },
-    { name: "Revealer", desc: "Reveal nearby enemies.", howto: "Sneak (60s cd)", effects: "Glowing on all enemies (20 blocks)", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "7.1%" },
-  ]},
-  { id: "f", label: "F", item: "ZOMBIE_HEAD", heroes: [
-    { name: "Creeper", desc: "You\'re a creeper.", howto: "Right-click to explode", effects: "Explosion (power 1), Remote detonation", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "4.5%" },
-    { name: "Enderman", desc: "Teleport by punching.", howto: "Left-click (10s cd)", effects: "Teleport 30 blocks, OHKO Endermen", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "9.1%" },
-    { name: "Zombie", desc: "You are a zombie!", howto: "Passive", effects: "Resistance II, knockback, burns in sun", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "9.1%" },
-    { name: "Dragon", desc: "Throw fireballs.", howto: "Right-click (30s cd)", effects: "Dragon fireballs", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "4.5%" },
-    { name: "Dragon2", desc: "Suck and blow everyone!", howto: "Right-click (2s cd)", effects: "Levitation X, Repulse, Wind Charges", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "4.5%" },
-    { name: "Evoker", desc: "Summon vexes that follow and attack for you!", howto: "Right-click Fang Horn for straight fangs (10s cd) — Right-click Vex Horn for 8 vexes (30s cd) — Auto-totem at 10% HP", effects: "5 straight fangs in a line, 8 following vexes (30s lifetime), vexes attack what you hit, auto-totem at 10% HP", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "6.8%" },
-    { name: "Slime", desc: "Bounce along the floor.", howto: "Passive", effects: "Bouncy, No fall damage", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "17.0%" },
-    { name: "IronGolem", desc: "You\'re an iron golem.", howto: "Passive", effects: "Iron ingots, Resistance II, Slowness II", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "9.1%" },
-    { name: "Phantom", desc: "Haunt the skies! Burn in sunlight but rain fire from above.", howto: "Jetpack (hold jump) — Sneak for Dive Bomb (15s cd)", effects: "Jetpack flight, Speed II + Strength I on Dive Bomb, set enemies on fire, phantom membranes, night vision, no fall damage.", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "11.4%" },
-    { name: "Shulker", desc: "Shoot levitation bullets and hide in your shell!", howto: "Right-click SHULKER_SHELL to shoot (3s cd) — Sneak for Shell Guard (10s cd)", effects: "Shulker bullet projectile (Levitation), Shell Guard (Resistance III + Absorption III), no fall damage.", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "6.8%" },
-    { name: "Snowman", desc: "Create snow trails!", howto: "Walk / Throw snowballs", effects: "Snow trail, infinite snowballs", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "17.0%" },
-  ]},
-  { id: "f_minus", label: "F-", item: "COAL_BLOCK", heroes: [
-    { name: "Powerless", desc: "You have no power.", howto: "N/A", effects: "Nothing. Normal player.", obtain: "Craft F- PowerShard (8 amethyst + Coal Block) & right-click to reroll.", chance: "100.0%" },
-  ]},
-];
-const C = {"spp":"spp-tier","s":"s-tier","a":"a-tier","b":"b-tier","c":"c-tier","d":"d-tier","e":"e-tier","f":"f-tier","f_minus":"f_minus-tier"};
-const S = 12;
-const IMG = "https://raw.githubusercontent.com/Mars1sGun/Powers/main/images/";
-const TIER_KEYS = {"S++":"s_plus_plus","S":"legendary","A":"heroes","B":"tech","C":"magic","D":"nature","E":"utility","F":"monsters","F-":"f_tier"};
-const TIER_ITEMS = {"S++":"Deepslate Emerald Ore","S":"Nether Star","A":"Diamond Block","B":"Gold Block","C":"Bookshelf","D":"Bone Block","E":"Iron Block","F":"Zombie Head","F-":"Coal Block"};
-function render(){const e=document.getElementById("app");let h='<div class="howto-box"><h2>⚡ How to Get Powers</h2><ol><li><strong>Craft a PowerShard</strong> — 8 amethyst shards + a tier item around it in a crafting table. Each tier (S++ through F-) needs a different item.</li><li><strong>Right-click the PowerShard</strong> to reroll a random power from that tier. The tier item determines which tier you roll.</li><li><strong>Find TempU potions</strong> in structure chests (25% chance) or buy from the Wandering Trader. Drink for a random hero (or boost your current one).</li><li><strong>Find CompoundU potions</strong> in structure chests (25% chance) — high risk, high reward. Random hero from a tier with a chance of death.</li><li><strong>Secret powers</strong> have special unlock methods — use <code>/powers clues</code> on Discord to find them.</li></ol></div>';h+='<div class="craft-section"><h2>🔨 Crafting Recipes</h2><p style="color:#999;font-size:.8rem;text-align:center;margin-bottom:.75rem">Each PowerShard: 8 Amethyst Shards + the tier item below in a 3x3 grid</p><div class="craft-powershard">';TIERS.forEach(t=>{h+=`<div class="craft-card"><div class="craft-label" style="font-size:.7rem;color:#4fc3f7;margin-bottom:.25rem">${TIER_ITEMS[t.label]}</div><img src="${IMG}craft_${TIER_KEYS[t.label]}.png" alt="${t.label} PowerShard" loading="lazy"><div class="craft-label">${t.label} PowerShard</div></div>`});h+=`</div><h2 style="color:#4fc3f7;font-size:1.1rem;font-weight:800;margin:1rem 0 .5rem;text-align:center">PowerStorer</h2><p style="color:#999;font-size:.8rem;text-align:center;margin-bottom:.75rem">4 same-tier PowerShards in a 2x2 grid</p><div class="craft-card" style="max-width:220px;margin:0 auto"><img src="${IMG}craft_powerstorer.png" alt="PowerStorer" loading="lazy"><div class="craft-label">PowerStorer</div></div></div>`;if(S>0){h+='<div class="secret-banner">There are <strong>'+S+'</strong> secret powers not shown — obtainable only through special means!</div>'}e.innerHTML=h+TIERS.map((t,i)=>{const r=t.id!="spp"?"collapsed":"";return`<div class="tier ${C[t.id]} ${r}" onclick="this.classList.toggle('collapsed')"><div class="tier-header"><span class="tier-rank">${t.label}</span><span class="tier-item">${t.label} PowerShard</span><span class="tier-rarity">${t.heroes.length} powers</span><span class="tier-toggle">▼</span></div><div class="tier-content">${t.heroes.map(h=>`<div class="hero-card${h.name==='Powerless'?' powerless':''}"><h3>${h.name}</h3><div class="hero-desc">${h.desc}</div><div class="hero-meta"><span class="meta-tag howto">${h.howto}</span><span class="meta-tag">${h.effects}</span><span class="meta-tag chance">${h.chance}</span><span class="meta-tag obtain">${h.obtain}</span></div></div>`).join("")}</div></div>`}).join("")}render();
-</script>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Superheroes Tierlist</title>
+<meta property="og:title" content="Superheroes Tierlist">
+<meta property="og:description" content="All powers ranked across 9 tiers with drop chances, controls, and effects.">
+<meta property="og:image" content="https://mars1sgun.github.io/Powers/og-image.png">
+<meta property="og:url" content="https://mars1sgun.github.io/Powers/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#e94560">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh}
+header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);padding:2rem;text-align:center;border-bottom:3px solid #e94560}
+header h1{font-size:2.5rem;font-weight:900;background:linear-gradient(90deg,#e94560,#0f3460,#e94560);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s ease-in-out infinite}
+header p{color:#a0a0b0;margin-top:.5rem;font-size:1.1rem}
+@keyframes shimmer{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+.container{max-width:1400px;margin:0 auto;padding:1rem}
+.tier{background:rgba(255,255,255,.03);border-radius:12px;margin:1rem 0;overflow:hidden;border:1px solid rgba(255,255,255,.06);transition:box-shadow .3s}
+.tier:hover{box-shadow:0 0 30px rgba(233,69,96,.1)}
+.tier-header{display:flex;align-items:center;padding:.75rem 1.25rem;gap:.75rem;cursor:pointer;user-select:none}
+.tier-rank{font-weight:900;font-size:1.3rem;min-width:50px;text-align:center;padding:.25rem .75rem;border-radius:8px}
+.tier-name{font-weight:700;font-size:1.1rem;flex:1}
+.tier-item{font-size:.8rem;color:#888;background:rgba(255,255,255,.05);padding:.2rem .6rem;border-radius:4px}
+.tier-rarity{font-size:.8rem;color:#888}
+.tier-toggle{font-size:1.2rem;color:#666;transition:transform .3s}
+.tier.collapsed .tier-toggle{transform:rotate(-90deg)}
+.tier-content{display:flex;flex-wrap:wrap;gap:.75rem;padding:0 1.25rem 1.25rem}
+.tier.collapsed .tier-content{display:none}
+.hero-card{background:rgba(255,255,255,.04);border-radius:10px;padding:.75rem;width:calc(33.333% - .5rem);border:1px solid rgba(255,255,255,.06);transition:all .3s;position:relative;overflow:hidden}
+.hero-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.3);border-color:rgba(255,255,255,.15)}
+.hero-card h3{font-size:1rem;font-weight:700;margin-bottom:.25rem}
+.hero-desc{font-size:.8rem;color:#999;line-height:1.4;margin-bottom:.5rem}
+.hero-meta{display:flex;gap:.5rem;flex-wrap:wrap;font-size:.7rem;align-items:center}
+.meta-tag{background:rgba(255,255,255,.06);padding:.15rem .5rem;border-radius:4px;color:#aaa}
+.meta-tag.howto{background:rgba(233,69,96,.15);color:#e94560}
+.meta-tag.obtain{background:rgba(79,195,247,.12);color:#4fc3f7;grid-column:1/-1;margin-top:2px}
+.meta-tag.chance{background:rgba(255,215,0,.12);color:#ffd700;font-weight:700}
+.spp-tier .tier-rank{background:linear-gradient(135deg,#ffd700,#ff8c00,#ffd700);color:#111}
+.spp-tier{border-color:#ffd700!important}.spp-tier .tier-header{background:linear-gradient(90deg,rgba(255,215,0,.08),transparent)}
+.s-tier .tier-rank{background:linear-gradient(135deg,#ff6b6b,#ee5a24);color:#fff}
+.a-tier .tier-rank{background:linear-gradient(135deg,#f093fb,#f5576c);color:#fff}
+.b-tier .tier-rank{background:linear-gradient(135deg,#4facfe,#00f2fe);color:#fff}
+.c-tier .tier-rank{background:linear-gradient(135deg,#43e97b,#38f9d7);color:#111}
+.d-tier .tier-rank{background:linear-gradient(135deg,#fa709a,#fee140);color:#111}
+.e-tier .tier-rank{background:linear-gradient(135deg,#a8edea,#fed6e3);color:#111}
+.f-tier .tier-rank{background:linear-gradient(135deg,#d8d8d8,#999);color:#111}
+.f_minus-tier .tier-rank{background:linear-gradient(135deg,#555,#333);color:#888}
+.howto-box{background:rgba(79,195,247,.08);border:1px solid rgba(79,195,247,.3);border-radius:12px;padding:1.25rem;margin:1.25rem 0;text-align:left}
+.howto-box h2{color:#4fc3f7;font-size:1.2rem;font-weight:800;margin-bottom:.75rem;text-align:center}
+.howto-box ol{list-style:none;counter-reset:item;padding:0}
+.howto-box ol li{counter-increment:item;padding:.4rem 0 .4rem 2.2rem;position:relative;font-size:.85rem;color:#ccc;line-height:1.5}
+.howto-box ol li::before{content:counter(item);position:absolute;left:0;top:.4rem;background:#4fc3f7;color:#0a0a0f;width:1.5rem;height:1.5rem;border-radius:50%;font-size:.75rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+.howto-box ol li strong{color:#fff}
+.howto-box ol li code{background:rgba(255,255,255,.08);padding:.1rem .4rem;border-radius:4px;font-size:.8rem;color:#4fc3f7}
+.craft-section{background:rgba(79,195,247,.04);border:1px solid rgba(79,195,247,.15);border-radius:12px;padding:1.25rem;margin:1.25rem 0}
+.craft-section h2{color:#4fc3f7;font-size:1.2rem;font-weight:800;margin-bottom:1rem;text-align:center}
+.craft-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem}
+.craft-card{background:rgba(255,255,255,.03);border-radius:10px;padding:.5rem;text-align:center;border:1px solid rgba(255,255,255,.06)}
+.craft-card img{width:100%;max-width:180px;height:auto;border-radius:6px;display:block;margin:0 auto}
+.craft-card .craft-label{font-size:.75rem;color:#aaa;margin-top:.35rem;font-weight:600}
+.craft-powershard{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-bottom:1rem}
+.craft-powershard .craft-card{width:calc(33.333% - .5rem);min-width:160px;flex:1}
+.secret-banner{background:rgba(233,69,96,.12);border:2px solid #e94560;border-radius:12px;padding:1rem;text-align:center;margin:1rem 0;font-size:1rem;color:#e94560}
+.hero-card.powerless{opacity:.4;filter:grayscale(1)}
+.hero-card.powerless:hover{opacity:.8;filter:grayscale(.5)}
+@media(max-width:900px){.hero-card{width:calc(50% - .5rem)}}
+@media(max-width:600px){.hero-card{width:100%}header h1{font-size:1.8rem}}
+footer{text-align:center;padding:2rem;color:#b388ff;font-size:.8rem}
+footer a{color:#b388ff;text-decoration:underline}
+</style>
+</head>
+<body>
+<header>
+<h1>SUPERHEROES TIERLIST</h1>
+<p>All powers ranked — click a tier to expand/collapse</p>
+<p style="margin-top:.5rem;font-size:.9rem;color:#4fc3f7">Bedrock: <b>138.201.255.236</b> port <b>5183</b> &nbsp;|&nbsp; Java: <b>pammers.lhg.gg:5106</b></p>
+</header>
+<div class="container" id="app"></div>
+<footer>Built by 1sGun &middot; join the discord <a href="https://discord.gg/srqWWpAAYW" target="_blank">https://discord.gg/srqWWpAAYW</a></footer>
+<script>
+
+const TIERS = [
+  { id: "spp", label: "S++", item: "DEEPSLATE_EMERALD_ORE", heroes: [
+    { name: "Tank", desc: "Reinforce yourself and repair all your gear.", howto: "Sneak (120s cd)", effects: "Resistance III, Absorption III, full repair", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "30.8%" },
+    { name: "Timeweaver", desc: "Stop time and teleport through space.", howto: "Left-click (5s cd) / Sneak (60s cd)", effects: "Teleport 30 blocks, Time Stop 15s", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "7.7%" },
+    { name: "Swiper", desc: "Shift-click a player to steal their power for 60s! S++ tier.", howto: "Sneak + right-click target player (180s cd, 120s with TempU)", effects: "Steal target's hero (60s), target becomes Powerless. Reverts after expiry.", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "7.7%" },
+    { name: "Ichigo", desc: "You are Ichigo Kurosaki, a Soul Reaper from Karakura Town!", howto: "Zangetsu Stick: RC=slash, Sneak+RC=Getsuga Tensho. Hollowfication: RC toggle (hunger drain). Bankai: RC activate. Cero, Horn, True Bankai, FGT forms.", effects: "Zangetsu melee (8 dmg), Getsuga Tensho (10 dmg), Hollowfication (Speed+Strength), Bankai, Horn (Str V+Res IV), True Bankai, FGT (half HP). TempU: halved hunger, extended forms.", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "15.4%" },
+    { name: "Airbender", desc: "Master of the skies! Infinite double jump, no fall damage, wind powers.", howto: "Infinite double jump (space mid-air), no fall damage. Sprint for wind boost. Right-click Stick: Air Blast (1s) / Tornado (20s) / Wind Shield (15s). TempU: +Airburst stick, halved cooldowns, bigger/longer tornado", effects: "N/A", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "23.1%" },
+    { name: "Hooked", desc: "Sneak with sword/spear/mace to pull entities toward you. Golden Stance gives invulnerability, regen, knockback. TempU: Blackhole.", howto: "Sneak with sword/spear/mace facing entity (2.5s cd, 1.25s TempU). Golden Stance: right-click stick (5s cd, 2.5s TempU). TempU: Blackhole snowball (5s cd).", effects: "Hook: Sneak with sword/spear/mace (20 range) pulls entity. Golden Stance: invuln+regen+repair+food. TempU: Blackhole pulls+blinds+withers.", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "7.7%" },{ name: "Forcefield", desc: "Create a bubble shield that blocks all damage!", howto: "Right-click stick to toggle shield. 25 HP, blocks all damage. Obsidian refuels food. 30s cd on break.", effects: "25 HP shield (50 TempU), blocks all damage. Barrier traps entities. Projectiles bounce. TempU: 50 HP, 6m radius, half hunger.", obtain: "Craft S++ PowerShard (8 amethyst + Deepslate Emerald Ore) & right-click to reroll.", chance: "15.4%" },
+  ]},
+  { id: "s", label: "S", item: "NETHER_STAR", heroes: [
+    { name: "Homelander", desc: "Fly through the skies and blast foes with laser vision and fireballs!", howto: "Jetpack (hold jump) + Right-click Redstone Block", effects: "Flight, Speed II, Strength II, Resistance II, Laser (6 dmg), Fireballs, X-ray", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "3.2%" },
+    { name: "Butcher", desc: "super strength, and grabbing tentacles!", howto: "Right-click BLACK_CONCRETE_POWDER to summon tentacle — left-click damage/chuck, right-click hold/drag", effects: "Speed I, Strength III, Resistance II, no fall damage, tentacle grab (drag/chuck/damage)", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "3.2%" },
+    { name: "Goku", desc: "You are an Adult Saiyan.", howto: "Right-click Breeze Rod (10s cd)", effects: "Ki Blast (5 dmg, 100 range), Speed VI, Jump Boost IV, Strength II, +20% HP", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "3.2%" },
+    { name: "Atrain", desc: "Super speedster.", howto: "Eat Sugar / Sneak (30s cd)", effects: "Speed VI, burst Speed XI, AoE slowness", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "3.2%" },
+    { name: "Eraserhead", desc: "Erase other people\'s powers by sneaking.", howto: "Sneak near target (30 range)", effects: "Power erasure on target", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "3.2%" },
+    { name: "Sorcerer", desc: "Create magical spell books using redstone.", howto: "Craft books with redstone", effects: "12+ spells: Fireball, Lightning, Explosion, etc.", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "12.9%" },
+    { name: "Terrorist", desc: "Explosive power.", howto: "Right-click to detonate", effects: "Creeper explosion (power 10), Remote detonation", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "12.9%" },
+    { name: "Heatwave", desc: "Engulf your surroundings in scorching flames!", howto: "Sneak (40s cd)", effects: "AoE fire (10 dmg), Ignite, Nausea", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
+    { name: "Archer", desc: "Shoot arrows and repel everyone!", howto: "Right-click Feather (2s cd)", effects: "Levitation, Repulsion, Infinite arrows", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
+    { name: "Almight", desc: "Sneak to become stronger.", howto: "Sneak (65s cd)", effects: "Strength VI, Resistance VI, Regen VI, Absorption VI", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
+    { name: "Mirror", desc: "Shift-click a player to copy their power for 60s! S tier.", howto: "Sneak + right-click target player (180s cd, 120s with TempU)", effects: "Copy target's hero (60s), target keeps theirs. Reverts after expiry.", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
+    { name: "SoulLink", desc: "Link souls with another entity — health is shared!", howto: "Right-click Stick on entity to link (30s) — Shift+right-click to unlink (10s cd)", effects: "Link to any entity — shared health pool, linked entity dies if you die and vice versa. Red particle trail. TempU halves cooldown.", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
+    { name: "Starlight", desc: "Fly and fire light arrows that debuff and explode!", howto: "Jetpack (hold jump) — Right-click Glowstone Dust to fire a glowing light arrow (4 shots per 5s) — explodes on hit", effects: "Jetpack flight, glowing light arrow (6 dmg + firework explosion + Blindness + Slowness II + Nausea), Strength II, Resistance I", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "3.2%" },
+    { name: "Morph", desc: "Kill mobs to store their form, then transform into them!", howto: "Kill a mob to store it in a slot — right-click to transform (30s duration)", effects: "N/A", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
+    { name: "Telekinesis", desc: "Bend blocks, mobs, and gravity with psychic power!", howto: "TeleCore: RC=select, LC=release, Sneak+RC=throw, Sneak+LC=pull | Psychic Flight: RC=toggle, LC=dash | Block Shield: RC=create, LC=launch block, Sneak+LC=dismiss | Gravity Pull: RC=pulse (pull+launch), LC=force pull, Sneak+RC=vacuum | Psychic Blast: RC=fire, LC=push, Sneak+RC=shockwave", effects: "All abilities share hunger as energy. Purple psychic visuals. TempU boosts shield/blast block count and gravity launch height.", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
+    { name: "Redliner", desc: "A momentum-based movement shooter. Bhop to build speed, shoot momentum bullets, grapple, parry, and slow fall.", howto: "Q=Gun (costs 100 momentum), F=Grapple (40-block hook), RC=Parry (2s universal parry), Shift=Slow Falling, Double-tap Sprint= Dash (3 charges), Sprint-jump=Bhop (builds speed+momentum). Melee dmg scales with momentum.", effects: "Bhop: chain jumps for speed+momentum. Gun: Arrow projectile, dmg=4xmomentumMult. Grapple: 40-block pull. Parry: 2s universal parry (first 0.5s perfect). Melee: (6+speed*20)xmomentumMult. Shift: Slow Falling. Dash: 3 charges. Speed-hit: 3 hits in 5s = 2s stun. Wallrun 5s. Momentum: 100=1bullet, 200=2xmult, 300=2.5xmult.", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "3.2%" },
+    { name: "Moxie", desc: "Kill chain! Each kill on a hostile mob/player: +50% damage per stage (max VI). TempU gives +2 stages per kill.", howto: "Passive — kill chain. Kill hostile mobs/players to stack damage.", effects: "Each kill on hostile mob/player: +50% damage per stage (max VI). TempU: +2 stages per kill. Action bar shows current stage and bonus.", obtain: "Craft Legendary PowerShard (8 amethyst + Nether Star) & right-click to reroll.", chance: "6.5%" },
+  ]},
+  { id: "a", label: "A", item: "DIAMOND_BLOCK", heroes: [
+    { name: "Earthbender", desc: "Control the earth around you!", howto: "Right-click Stick: Rock Blast (1s) / Earthquake (10s) / Raise Wall (10s)", effects: "N/A", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "IronBlaster", desc: "Fly and unleash rapid ghast fireballs!", howto: "Jetpack + Right-click Blaze Powder", effects: "Flight, Speed VI, Fireball barrage", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "2.3%" },
+    { name: "Doomfist", desc: "You are Doomfist.", howto: "Punch air (10s cd)", effects: "Slam (8 dmg, 5 radius)", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "2.3%" },
+    { name: "Clone", desc: "Spawn a skeleton clone that fights for you!", howto: "Sneak to summon clone (30s cd)", effects: "Skeleton clone with your skin/armor, follows, attacks who you hit or who hits you", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "Necromancer", desc: "Kill mobs to fill 3 summon slots (2 kills/summon, 10 for bosses). Minions follow, attack who you attack. TempU halves kill req.", howto: "Kill mobs to fill summon slots — right-click Bone to summon (2 kills per summon)", effects: "N/A", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "IronMan", desc: "Genius, billionaire, playboy, philanthropist.", howto: "Jetpack (hold jump)", effects: "Flight with gliding", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "BigBetha", desc: "You are GiantGertrude!", howto: "Passive", effects: "1.5x scale, Flight, Damage modifier", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "MtLady", desc: "You are a giant!", howto: "Passive", effects: "3x scale, 2x HP, Step height 3", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "Strongman", desc: "Pickup and throw entities!", howto: "Right-click entity", effects: "Throw (velocity 2.5)", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "Superhuman", desc: "A more powerful human.", howto: "Passive", effects: "Resistance II, Speed II, Jump Boost III", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "PowerOfPanic", desc: "Low HP gives strength, full HP makes you sluggish!", howto: "Passive — automatic based on HP", effects: "Below 50%: Strength II + Speed II. Below 25%: Strength III + Speed III + Resistance II. Above 95%: Weakness I. TempU boosts all effects +1 level.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "ExtraHeartMan", desc: "Extra hearts and give absorption.", howto: "Right-click player", effects: "+4 HP, Absorption II (60s) to others", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "Speedster", desc: "Permanent speed IV.", howto: "Passive", effects: "Speed V", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "8.6%" },
+    { name: "Flashbang", desc: "Blind nearby players.", howto: "Sneak (60s cd)", effects: "AoE Blindness (20 blocks)", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "8.6%" },
+    { name: "Benson", desc: "Fly like Tinkerbell! Disabled for 5s on hit or when you hit someone.", howto: "Passive", effects: "Flight, disabled by Slowness II + Weakness V + Blindness for 5s on PvP.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "TheCrippler", desc: "Sneak to disable all powers within 15 blocks for 60s! A tier.", howto: "Sneak to trigger (180s cd, 120s with TempU)", effects: "AoE 15 blocks: all players set to Powerless (60s). Reverts after expiry.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "TheCombo", desc: "Hit AND get hit to stack both atk and def - 1s window!", howto: "Passive - hitting AND getting hit builds combo for both +atk and -def", effects: "+atk per hit, -def per hit taken (1s window). TempU: 0.5s, 2x multiplier.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "Sacrifice", desc: "Kill to heal - convert items into totems!", howto: "Passive - kills heal below 20 HP. Sneak with item to sacrifice for totem (60s cd, 30s TempU).", effects: "Kill heal below 20 HP. Sneak with item = 1 totem (60s cd, 30s TempU).", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "PocketDimension", desc: "Enter your own pocket dimension or trap others inside one!", howto: "Right-click Pocket Dimension stick: enter your own pocket world (30s, 60s TempU, 60s cd). Right-click Pocket Trap stick on a player: trap them in a pocket box (30s, 60s TempU, 30s cd).", effects: "Personal: enter a 6x7 pocket world for 30s (60s TempU, 60s cd / 30s TempU). Trap: trap a target player in a pocket box for 30s (60s TempU, 30s cd / 15s TempU). No fall damage in pocket.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "Waterbender", desc: "Master of water and ice! Water breathing, dolphins grace, hydro step, torpedo dash, water blast, ice wall, healing rain, and water wave.", howto: "Passive: Water Breathing + Dolphins Grace (Conduit Power in water). Right-click Stick: Water Blast (no cd) / Ice Wall (12s) / Healing Rain (25s) / Water Wave (5s, 2.5s TempU) / Hydro Step (toggle, no cd). Sprint in water: Torpedo dash. Eat fish: 4x hunger.", effects: "Water Breathing + Dolphins Grace (Conduit in water). Water Blast (6 dmg, no cd, temp ice on impact). Ice Wall (packed ice, 12s cd, despawns). Healing Rain (25s cd, AoE heal). Water Wave (5 dmg, 18 blocks, 5s cd). Hydro Step (toggle, water blocks under feet, ascend in water). Torpedo (sprint in water: boost + 4 dmg, 3 range, hunger drain). Eat fish: 4x hunger. TempU: +dmg, +range, less hunger, longer Ice Wall.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+    { name: "Sturdy", desc: "At full HP, survive any fatal hit with 1 HP instead.", howto: "Passive — automatic when at full HP.", effects: "At full HP, any fatal hit leaves you at 1 HP instead. Action bar shows 'Sturdy activated!' on proc.", obtain: "Craft A PowerShard (8 amethyst + Diamond Block) & right-click to reroll.", chance: "4.6%" },
+  ]},
+  { id: "b", label: "B", item: "GOLD_BLOCK", heroes: [
+    { name: "SizeShift", desc: "Shrink or grow at will!", howto: "Right-click Amethyst Shard to shrink — Right-click Emerald to grow (30s duration)", effects: "Shrink: 0.25x scale, fast speed/attacks. Grow: 1.5x scale, +6 dmg, slow speed/attacks", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "7.8%" },
+    { name: "Lazer", desc: "Fire a deadly laser beam.", howto: "Right-click Echo Shard", effects: "Laser (6 dmg, 30 range)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "3.9%" },
+    { name: "Gun", desc: "You have a gun.", howto: "Right-click Stone Hoe", effects: "Gun (5 dmg, 64 range)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "7.8%" },
+    { name: "Robot", desc: "You\'re a robot.", howto: "Passive", effects: "No hunger, Resistance, Night vision", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "7.8%" },
+    { name: "Phase", desc: "Phase through the ground.", howto: "Sneak to phase", effects: "Phase 5 blocks deep", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "3.9%" },
+    { name: "Repulsion", desc: "Repel entities when sneaking.", howto: "Sneak", effects: "Repulse (1.5x, 10 radius)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "3.9%" },
+    { name: "BlackHole", desc: "Attract entities when sneaking.", howto: "Sneak", effects: "Attract (-0.35x, 10 radius)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "3.9%" },
+    { name: "GravitySucker", desc: "Control gravity.", howto: "Passive sneaking", effects: "Levitation, Slow falling, Repulse", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "7.8%" },
+    { name: "Sucker", desc: "You suck everything.", howto: "Sneak", effects: "Attract (-0.8x, 3.4 radius)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "14.7%" },
+    { name: "Bubble", desc: "You have a bubble.", howto: "Sneak", effects: "Repulse (2x, 3.4 radius)", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "14.7%" },
+    { name: "ComboDefence", desc: "Get hit rapidly to stack endurance - 1s combo window!", howto: "Passive - get hit within 1s to stack Resistance + Absorption", effects: "Resistance + Absorption per hit (1s window). TempU: 0.5s window, 2x amp per stack.", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "7.8%" },
+    { name: "ComboOffence", desc: "Hit rapidly to stack strength - 1s combo window!", howto: "Passive - hit targets within 1s to stack Strength", effects: "Strength per hit (1s window). TempU: 0.5s window, 2x amp per stack.", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "7.8%" },
+    { name: "PortalGun", desc: "Place linked portals to teleport across the world!", howto: "Blue/Orange stick to place portals. Walk through to teleport. Sneak+RC to remove.", effects: "Glass block portal ring, 30s, 60 range. 4x velocity through portals. TempU: 200 range, 60s.", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "3.9%" },
+    { name: "NoGuard", desc: "All melee damage you deal and receive ignores armor, strength, and weakness.", howto: "Passive — your melee attacks and melee damage taken both ignore armor + strength + weakness.", effects: "Personal passive: all melee damage dealt and taken ignores armor + strength + weakness.", obtain: "Craft B PowerShard (8 amethyst + Gold Block) & right-click to reroll.", chance: "3.9%" },
+  ]},
+  { id: "c", label: "C", item: "BOOKSHELF", heroes: [
+    { name: "Frozone", desc: "Walk on water, slow others.", howto: "Passive", effects: "Water walk, Slowness aura", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "3.6%" },
+    { name: "Nebular", desc: "Controls the void world.", howto: "Sneak (10s cd)", effects: "AoE 5 dmg + Blindness + Wither", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "3.6%" },
+    { name: "Dracula", desc: "Absorb life force.", howto: "Attack enemies", effects: "5% lifesteal, +2 max hearts per kill", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
+    { name: "Zeus", desc: "Strike lightning.", howto: "Left-click (10s cd)", effects: "Lightning (30 range), Lightning immunity", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
+    { name: "Midoriya", desc: "The Ninth Holder of One For All.", howto: "Sneak-jump to toggle", effects: "Full Cowling, Detroit Smash (8 dmg)", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
+    { name: "Disguise", desc: "Trick players with disguise.", howto: "Sneak for invisibility", effects: "Invisibility, speed, decoy spawn", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
+    { name: "DrCloak", desc: "Not attacked while disguised.", howto: "Sneak (30s cd)", effects: "10s invisibility, mobs lose target", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
+    { name: "GravityGuy", desc: "Sneak to rise, let go to fall.", howto: "Sneak to rise", effects: "Levitation II, Slow falling", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "13.6%" },
+    { name: "Aerosurfer", desc: "Create platforms.", howto: "Sneak to create platforms", effects: "Glass platforms, Speed II", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "13.6%" },
+    { name: "Coinflip", desc: "Sneak every 30s for 3 random effects - all good or all bad!", howto: "Sneak to flip (30s cd) - 3 random effects for 15s", effects: "3 random potion effects (15s, lvl 1). TempU: lvl 2.", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
+    { name: "Rabbit", desc: "Speed II + Jump II + no fall damage - auto-burrow on landing! TempU: Super Jump (sneak).", howto: "Passive: Speed II + Jump II + no fall damage. Landing = AoE stomp + auto-burrow. Sneak to unburrow early. TempU: Super Jump (sneak 10s cd).", effects: "Speed II, Jump II, no fall damage. Stomp + auto-burrow on landing. Sneak to unburrow early. TempU: 1.5x + Super Jump (sneak 10s cd).", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
+    { name: "DamageDelay", desc: "Sneak to absorb damage, unsneak to release AoE!", howto: "Sneak to absorb all damage (Weakness+Slowness applied). Unsneak to release AoE explosion (self-damage 30%).", effects: "Sneak: absorbs all damage, Weakness C+Slowness C. Unsneak: AoE explosion, 30% self-damage. TempU: 1.5x radius.", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "7.3%" },
+    { name: "Intimidate", desc: "An intimidating aura — enemies within range deal 33% less melee damage!", howto: "Passive — automatic melee damage reduction aura in a 5-block radius (10 with TempU).", effects: "All entities within 5 blocks deal 33% less melee damage. TempU: range 10 blocks. Action bar shows intimidation count.", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "3.6%" },
+    { name: "Guts", desc: "When poisoned, burning, slowed, or freezing — deal 50% more damage!", howto: "Passive — automatic when poisoned, on fire, in lava, slowed, or freezing.", effects: "+50% melee damage when poisoned, on fire, in lava, slowed, or freezing.", obtain: "Craft C PowerShard (8 amethyst + Bookshelf) & right-click to reroll.", chance: "3.6%" },
+  ]},
+  { id: "d", label: "D", item: "BONE_BLOCK", heroes: [
+    { name: "Floral", desc: "Create and consume flowers.", howto: "Look at ground / Right-click", effects: "11 flower types with buffs", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "8.4%" },
+    { name: "Aquaman", desc: "Walk underwater.", howto: "Passive", effects: "Water breathing, water walking", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "8.4%" },
+    { name: "LavaWalker", desc: "Walk on lava.", howto: "Passive", effects: "Lava walk, fire heals, fire immunity", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "8.4%" },
+    { name: "Anvil", desc: "The higher you fall, the more AoE damage and stun you deal. No fall damage, but you get stunned too! TempU: 2x all values.", howto: "Fall from any height \u2014 passive automatic. Higher fall = bigger AoE + stun. TempU: 2x all values.", effects: "Passive: no fall damage. On landing, AoE damage = 1 per block fallen (radius = 5 per 10 blocks). Both you and enemies get Slowness + Mining Fatigue. TempU: 2x damage, 2x radius, 2x stun.", obtain: "Craft D PowerShard (8 amethyst + Anvil) & right-click to reroll.", chance: "7.8%" },{ name: "Pyromaniac", desc: "Create fire trails.", howto: "Walk", effects: "Fire trail, fire/lava immunity", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "8.4%" },
+    { name: "Chicken", desc: "You\'re a chicken.", howto: "Passive", effects: "Lay eggs, Speed III, Slow falling", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "26.3%" },
+    { name: "Dolphin", desc: "Swim at great speeds!", howto: "Passive / Eat Ink Sac", effects: "Dolphins Grace V, Water breathing", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "15.8%" },
+    { name: "Tinkerbell", desc: "You are Tinkerbell!", howto: "Passive", effects: "Flight, Tiny (0.25x)", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "15.8%" },
+    { name: "EmergencyExit", desc: "No power file found.", howto: "Passive - teleports to safety on fatal damage (100s cd, 50s TempU)", effects: "Teleport to safety on fatal damage. 100s cd (50s TempU).", obtain: "Craft D PowerShard (8 amethyst + Bone Block) & right-click to reroll.", chance: "8.4%" },
+  ]},
+  { id: "e", label: "E", item: "IRON_BLOCK", heroes: [
+    { name: "Spartan", desc: "Unbreakable shield + arrows.", howto: "Right-click Arrow", effects: "Unbreakable shield, infinite arrows (3 dmg)", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "7.1%" },
+    { name: "SpiderMan", desc: "Climb walls, shoot webs (5s cd), and grapple to swing!", howto: "Right-click Web Shooter for webs, right-click Web Grapple to swing", effects: "Wall climb, 90% fall reduction, web shoot, grapple swing", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
+    { name: "KingMidas", desc: "Turn items to gold.", howto: "Passive / Right-click", effects: "Golden Apple craft, blocks to gold", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
+    { name: "Scavenger", desc: "Extra crafting recipes.", howto: "Craft at table", effects: "Cheap diamond tools/armor", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
+    { name: "Mole", desc: "Instant break certain blocks.", howto: "Break dirt/stone", effects: "Instant break, Night vision", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
+    { name: "Speleologist", desc: "Double and smelt ores!", howto: "Mine ores", effects: "Auto-smelt & double all ores", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "14.3%" },
+    { name: "Pickpocket", desc: "Steal from players!", howto: "Sneak + right-click", effects: "Pickpocket (3 range)", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "7.1%" },
+    { name: "BlowingGuy", desc: "Rise and blow away.", howto: "Sneak", effects: "Levitation, Repulse (0.8x)", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "7.1%" },
+    { name: "Revealer", desc: "Reveal nearby enemies.", howto: "Sneak (60s cd)", effects: "Glowing on all enemies (20 blocks)", obtain: "Craft E PowerShard (8 amethyst + Iron Block) & right-click to reroll.", chance: "7.1%" },
+  ]},
+  { id: "f", label: "F", item: "ZOMBIE_HEAD", heroes: [
+    { name: "Creeper", desc: "You\'re a creeper.", howto: "Right-click to explode", effects: "Explosion (power 1), Remote detonation", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "4.5%" },
+    { name: "Enderman", desc: "Teleport by punching.", howto: "Left-click (10s cd)", effects: "Teleport 30 blocks, OHKO Endermen", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "9.1%" },
+    { name: "Zombie", desc: "You are a zombie!", howto: "Passive", effects: "Resistance II, knockback, burns in sun", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "9.1%" },
+    { name: "Dragon", desc: "Throw fireballs.", howto: "Right-click (30s cd)", effects: "Dragon fireballs", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "4.5%" },
+    { name: "Dragon2", desc: "Suck and blow everyone!", howto: "Right-click (2s cd)", effects: "Levitation X, Repulse, Wind Charges", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "4.5%" },
+    { name: "Evoker", desc: "Summon vexes that follow and attack for you!", howto: "Right-click Fang Horn for straight fangs (10s cd) — Right-click Vex Horn for 8 vexes (30s cd) — Auto-totem at 10% HP", effects: "5 straight fangs in a line, 8 following vexes (30s lifetime), vexes attack what you hit, auto-totem at 10% HP", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "6.8%" },
+    { name: "Slime", desc: "Bounce along the floor.", howto: "Passive", effects: "Bouncy, No fall damage", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "17.0%" },
+    { name: "IronGolem", desc: "You\'re an iron golem.", howto: "Passive", effects: "Iron ingots, Resistance II, Slowness II", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "9.1%" },
+    { name: "Phantom", desc: "Haunt the skies! Burn in sunlight but rain fire from above.", howto: "Jetpack (hold jump) — Sneak for Dive Bomb (15s cd)", effects: "Jetpack flight, Speed II + Strength I on Dive Bomb, set enemies on fire, phantom membranes, night vision, no fall damage.", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "11.4%" },
+    { name: "Shulker", desc: "Shoot levitation bullets and hide in your shell!", howto: "Right-click SHULKER_SHELL to shoot (3s cd) — Sneak for Shell Guard (10s cd)", effects: "Shulker bullet projectile (Levitation), Shell Guard (Resistance III + Absorption III), no fall damage.", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "6.8%" },
+    { name: "Snowman", desc: "Create snow trails!", howto: "Walk / Throw snowballs", effects: "Snow trail, infinite snowballs", obtain: "Craft F PowerShard (8 amethyst + Zombie Head) & right-click to reroll.", chance: "17.0%" },
+  ]},
+  { id: "f_minus", label: "F-", item: "COAL_BLOCK", heroes: [
+    { name: "Powerless", desc: "You have no power.", howto: "N/A", effects: "Nothing. Normal player.", obtain: "Craft F- PowerShard (8 amethyst + Coal Block) & right-click to reroll.", chance: "100.0%" },
+  ]},
+];
+const C = {"spp":"spp-tier","s":"s-tier","a":"a-tier","b":"b-tier","c":"c-tier","d":"d-tier","e":"e-tier","f":"f-tier","f_minus":"f_minus-tier"};
+const S = 12;
+const IMG = "https://raw.githubusercontent.com/Mars1sGun/Powers/main/images/";
+const TIER_KEYS = {"S++":"s_plus_plus","S":"legendary","A":"heroes","B":"tech","C":"magic","D":"nature","E":"utility","F":"monsters","F-":"f_tier"};
+const TIER_ITEMS = {"S++":"Deepslate Emerald Ore","S":"Nether Star","A":"Diamond Block","B":"Gold Block","C":"Bookshelf","D":"Bone Block","E":"Iron Block","F":"Zombie Head","F-":"Coal Block"};
+function render(){const e=document.getElementById("app");let h='<div class="howto-box"><h2>⚡ How to Get Powers</h2><ol><li><strong>Craft a PowerShard</strong> — 8 amethyst shards + a tier item around it in a crafting table. Each tier (S++ through F-) needs a different item.</li><li><strong>Right-click the PowerShard</strong> to reroll a random power from that tier. The tier item determines which tier you roll.</li><li><strong>Find TempU potions</strong> in structure chests (25% chance) or buy from the Wandering Trader. Drink for a random hero (or boost your current one).</li><li><strong>Find CompoundU potions</strong> in structure chests (25% chance) — high risk, high reward. Random hero from a tier with a chance of death.</li><li><strong>Secret powers</strong> have special unlock methods — use <code>/powers clues</code> on Discord to find them.</li></ol></div>';h+='<div class="craft-section"><h2>🔨 Crafting Recipes</h2><p style="color:#999;font-size:.8rem;text-align:center;margin-bottom:.75rem">Each PowerShard: 8 Amethyst Shards + the tier item below in a 3x3 grid</p><div class="craft-powershard">';TIERS.forEach(t=>{h+=`<div class="craft-card"><div class="craft-label" style="font-size:.7rem;color:#4fc3f7;margin-bottom:.25rem">${TIER_ITEMS[t.label]}</div><img src="${IMG}craft_${TIER_KEYS[t.label]}.png" alt="${t.label} PowerShard" loading="lazy"><div class="craft-label">${t.label} PowerShard</div></div>`});h+=`</div><h2 style="color:#4fc3f7;font-size:1.1rem;font-weight:800;margin:1rem 0 .5rem;text-align:center">PowerStorer</h2><p style="color:#999;font-size:.8rem;text-align:center;margin-bottom:.75rem">4 same-tier PowerShards in a 2x2 grid</p><div class="craft-card" style="max-width:220px;margin:0 auto"><img src="${IMG}craft_powerstorer.png" alt="PowerStorer" loading="lazy"><div class="craft-label">PowerStorer</div></div></div>`;if(S>0){h+='<div class="secret-banner">There are <strong>'+S+'</strong> secret powers not shown — obtainable only through special means!</div>'}e.innerHTML=h+TIERS.map((t,i)=>{const r=t.id!="spp"?"collapsed":"";return`<div class="tier ${C[t.id]} ${r}" onclick="this.classList.toggle('collapsed')"><div class="tier-header"><span class="tier-rank">${t.label}</span><span class="tier-item">${t.label} PowerShard</span><span class="tier-rarity">${t.heroes.length} powers</span><span class="tier-toggle">▼</span></div><div class="tier-content">${t.heroes.map(h=>`<div class="hero-card${h.name==='Powerless'?' powerless':''}"><h3>${h.name}</h3><div class="hero-desc">${h.desc}</div><div class="hero-meta"><span class="meta-tag howto">${h.howto}</span><span class="meta-tag">${h.effects}</span><span class="meta-tag chance">${h.chance}</span><span class="meta-tag obtain">${h.obtain}</span></div></div>`).join("")}</div></div>`}).join("")}render();
+</script>
+</body>
 </html>
