@@ -1,0 +1,271 @@
+config_version: 9.1.1
+
+global_reroll_settings:
+  itemEnabled: false
+  eachHeroRequiresPermission: false
+  itemCooldown: 1
+
+reroll_groups:
+  s_plus_plus:
+    item:
+      types:
+        - DEEPSLATE_EMERALD_ORE
+    heroes:
+      - hero: Tank
+        weight: 4
+      - hero: Timeweaver
+        weight: 1
+      - hero: Swiper
+        weight: 1
+      - hero: Ichigo
+        weight: 2
+      - hero: Airbender
+        weight: 3
+      - hero: Hooked
+        weight: 1
+      - hero: Forcefield
+        weight: 2
+
+  legendary:
+    item:
+      types:
+        - NETHER_STAR
+    heroes:
+      - hero: Homelander
+        weight: 1
+      - hero: Butcher
+        weight: 1
+      - hero: Goku
+        weight: 1
+      - hero: Atrain
+        weight: 1
+      - hero: Eraserhead
+        weight: 1
+      - hero: Sorcerer
+        weight: 4
+      - hero: Terrorist
+        weight: 4
+      - hero: Heatwave
+        weight: 2
+      - hero: Archer
+        weight: 2
+      - hero: Almight
+        weight: 2
+      - hero: Mirror
+        weight: 2
+      - hero: SoulLink
+        weight: 2
+      - hero: Starlight
+        weight: 1
+      - hero: Morph
+        weight: 2
+      - hero: Telekinesis
+        weight: 2
+      - hero: Redliner
+        weight: 1
+      - hero: Moxie
+        weight: 2
+      - hero: Surge
+        weight: 2
+
+  monsters:
+    item:
+      types:
+        - ZOMBIE_HEAD
+    heroes:
+      - hero: Creeper
+        weight: 4
+      - hero: Enderman
+        weight: 8
+      - hero: Zombie
+        weight: 8
+      - hero: Dragon
+        weight: 4
+      - hero: Dragon2
+        weight: 4
+      - hero: Evoker
+        weight: 6
+      - hero: Slime
+        weight: 15
+      - hero: IronGolem
+        weight: 8
+      - hero: Phantom
+        weight: 10
+      - hero: Shulker
+        weight: 6
+      - hero: Snowman
+        weight: 15
+
+  heroes:
+    item:
+      types:
+        - DIAMOND_BLOCK
+    heroes:
+      - hero: Earthbender
+        weight: 8
+      - hero: IronBlaster
+        weight: 4
+      - hero: Doomfist
+        weight: 4
+      - hero: Clone
+        weight: 8
+      - hero: Necromancer
+        weight: 8
+      - hero: IronMan
+        weight: 8
+      - hero: BigBetha
+        weight: 8
+      - hero: MtLady
+        weight: 8
+      - hero: Strongman
+        weight: 8
+      - hero: Superhuman
+        weight: 8
+      - hero: PowerOfPanic
+        weight: 8
+      - hero: ExtraHeartMan
+        weight: 8
+      - hero: Speedster
+        weight: 15
+      - hero: Flashbang
+        weight: 15
+      - hero: Benson
+        weight: 8
+      - hero: TheCrippler
+        weight: 8
+      - hero: TheCombo
+        weight: 8
+      - hero: Sacrifice
+        weight: 8
+      - hero: PocketDimension
+        weight: 8
+      - hero: Waterbender
+        weight: 8
+      - hero: Firebender
+        weight: 8
+      - hero: Sturdy
+        weight: 8
+
+  tech:
+    item:
+      types:
+        - GOLD_BLOCK
+    heroes:
+      - hero: SizeShift
+        weight: 8
+      - hero: Lazer
+        weight: 4
+      - hero: Gun
+        weight: 8
+      - hero: Robot
+        weight: 8
+      - hero: Phase
+        weight: 4
+      - hero: Repulsion
+        weight: 4
+      - hero: BlackHole
+        weight: 4
+      - hero: GravitySucker
+        weight: 8
+      - hero: Sucker
+        weight: 15
+      - hero: Bubble
+        weight: 15
+      - hero: ComboDefence
+        weight: 8
+      - hero: ComboOffence
+        weight: 8
+      - hero: PortalGun
+        weight: 4
+      - hero: NoGuard
+        weight: 4
+
+  magic:
+    item:
+      types:
+        - BOOKSHELF
+    heroes:
+      - hero: Frozone
+        weight: 4
+      - hero: Nebular
+        weight: 4
+      - hero: Dracula
+        weight: 8
+      - hero: Zeus
+        weight: 8
+      - hero: Midoriya
+        weight: 8
+      - hero: Disguise
+        weight: 8
+      - hero: DrCloak
+        weight: 8
+      - hero: GravityGuy
+        weight: 15
+      - hero: Aerosurfer
+        weight: 15
+      - hero: Coinflip
+        weight: 8
+      - hero: Rabbit
+        weight: 8
+      - hero: DamageDelay
+        weight: 8
+      - hero: Intimidate
+        weight: 4
+      - hero: Guts
+        weight: 4
+
+  nature:
+    item:
+      types:
+        - BONE_BLOCK
+    heroes:
+      - hero: Floral
+        weight: 8
+      - hero: Aquaman
+        weight: 8
+      - hero: LavaWalker
+        weight: 8
+      - hero: Pyromaniac
+        weight: 8
+      - hero: Anvil
+        weight: 8
+      - hero: Chicken
+        weight: 25
+      - hero: Dolphin
+        weight: 15
+      - hero: Tinkerbell
+        weight: 15
+      - hero: EmergencyExit
+        weight: 8
+
+  utility:
+    item:
+      types:
+        - IRON_BLOCK
+    heroes:
+      - hero: Spartan
+        weight: 4
+      - hero: SpiderMan
+        weight: 8
+      - hero: KingMidas
+        weight: 8
+      - hero: Scavenger
+        weight: 8
+      - hero: Mole
+        weight: 8
+      - hero: Speleologist
+        weight: 8
+      - hero: Pickpocket
+        weight: 4
+      - hero: BlowingGuy
+        weight: 4
+      - hero: Revealer
+        weight: 4
+
+  f_tier:
+    item:
+      types:
+        - COAL_BLOCK
+    heroes:
+      - hero: Powerless
+        weight: 1
